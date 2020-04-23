@@ -1,0 +1,250 @@
+openapi: 3.0.0
+info:
+  description: this is a restful api of dtp
+  title: nirvana
+  version: 1.0.0
+servers:
+- url: http://0.0.0.0:9090/api/
+  description: 本地调试环境
+- url: http://10.10.130.100:9090/api/
+  description: 测试环境
+
+paths:
+  /testcases:
+    get:
+      summary: 获取指定接口的测试用例列表
+      operationId: openapi.api.testcase.list
+      description: 获取指定接口的测试用例列表
+      parameters:
+      - description: gitlab的项目id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
+      - description: 分支名
+        in: query
+        name: ref
+        schema:
+          type: string
+        required: true
+      - description: 请求的方法
+        in: query
+        name: method
+        schema:
+          type: string
+        required: true
+      - description: 请求的路径
+        in: query
+        name: path
+        schema:
+          type: string
+        required: true
+      - description: 访问gitlab的token
+        in: header
+        name: Private-Token
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 返回测试用例列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/testcase_list_structure'
+
+    post:
+      summary: 创建测试用例
+      operationId: openapi.api.testcase.create
+      description: 创建测试用例
+      parameters:
+      - description: gitlab的项目id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
+      - description: 分支名
+        in: query
+        name: ref
+        schema:
+          type: string
+        required: true
+      - description: 请求的方法
+        in: query
+        name: method
+        schema:
+          type: string
+        required: true
+      - description: 请求的路径
+        in: query
+        name: path
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/testcase_structure'
+
+      responses:
+        200:
+          description: 创建测试用例成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_success'
+        400:
+          description: 创建测试用例失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_failed'
+
+  /testcases/{case_id}:
+    put:
+      summary: 更新测试用例
+      description: 更新指定的测试用例
+      operationId: openapi.api.testcase.update
+      parameters:
+      - description: 测试用例id
+        in: path
+        name: case_id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/testcase_structure'
+      responses:
+        200:
+          description: 更新测试用例成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/update_success'
+
+  /testcases/{case_id}/run:
+    get:
+      summary: 运行测试用例
+      description: 运行指定的测试用例
+      operationId: openapi.api.testcase.run
+      parameters:
+      - description: 测试用例id
+        in: path
+        name: case_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 运行测试用例成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  log:
+                    type: string
+
+components:
+  schemas:
+    create_success:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 创建XX成功
+        detail:
+          type: string
+          example: 创建XX详情成功
+
+    create_failed:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 创建XX失败
+        detail:
+          type: string
+          example: 创建XX详情失败
+
+    update_success:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 更新XX成功
+        detail:
+          type: string
+          example: 更新XX详情成功
+
+    update_failed:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 更新XX失败
+        detail:
+          type: string
+          example: 更新XX详情失败
+
+    testcase_structure:
+      type: object
+      properties:
+        case:
+          type: string
+        description:
+          type: string
+        setup:
+          type: array
+          items:
+            type: string
+        parameters:
+          type: array
+          items:
+            type: object
+        body:
+          type: string
+        teardown:
+          type: array
+          items:
+            type: string
+        validator:
+          type: array
+          items:
+            type: object
+
+    testcase_list_structure:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 1
+              case:
+                type: string
+                example: case-demo1
+              description:
+                type: string
+                example: case-description
