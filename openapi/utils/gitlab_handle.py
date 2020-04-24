@@ -10,8 +10,10 @@ def get_file_content_from_gitlab(project_id, file_path, ref, token):
 
     url = f'https://{gitlab.get("gitlab_url")}/api/v4/projects/{project_id}/repository/files/{quote(file_path, safe="")}?ref={ref}'
     headers = {
-        'Private-Token': token
+        'Authorization': token
     }
+
+    print(url)
 
     try:
         import requests

@@ -6,7 +6,7 @@ from flask import g
 
 def list(project_id, file_path, ref, method, path):
     try:
-        token = connexion.request.headers.get('Private-Token')
+        token = connexion.request.headers.get('Authorization')
         case_list = testcase.get_testcase_list_by_method_and_path(project_id, file_path, ref, method, path, token, g.username)
         return {
             'data': case_list
@@ -43,13 +43,13 @@ def update(case_id, body):
         raise DefalutError(title=f'更新测试用例异常', detail=f'{e}')
 
 def run(case_id):
-    print(case_id)
+
     import pytest
     # result = pytest.main(['/Users/xumin/jo/nirvana7/openapi/specs/test_case.py'])
     # print(result)
 
     import os
-    res = os.popen('pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --test=1,2,3,4 --capture=no')
+    res = os.popen(f'pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --capture=no')
 
     print(f'{res.read()}')
 

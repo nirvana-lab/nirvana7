@@ -48,7 +48,7 @@ paths:
         required: true
       - description: 访问gitlab的token
         in: header
-        name: Private-Token
+        name: Authorization
         schema:
           type: string
         required: true

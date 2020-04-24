@@ -69,3 +69,14 @@ class TestCase(db.Entity):
             }
             case_list.append(tmp_dict)
         return case_list
+
+    @classmethod
+    @db_session
+    def get_case_content_by_id(cls, case_id):
+        obj = get(n for n in TestCase if n.id == case_id and n.delete_at == None)
+        if obj:
+            return {
+                ''
+            }
+        else:
+            raise IsNotExist(title='测试用例不存在', detail=f'id为{case_id}的测试用例不存在')

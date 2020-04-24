@@ -1,9 +1,11 @@
 import pytest
+from openapi.db.models import testcase
 from copy import deepcopy
 
 @pytest.fixture()
-def case_handle(param1):
-    if param1 == '1':
+def case_handle(case_id):
+    print(case_id)
+    if case_id == '1':
         return 1
     else:
         return 6
