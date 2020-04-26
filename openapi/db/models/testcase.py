@@ -76,7 +76,13 @@ class TestCase(db.Entity):
         obj = get(n for n in TestCase if n.id == case_id and n.delete_at == None)
         if obj:
             return {
-                ''
+                'case': obj.case,
+                'description': obj.description,
+                'setup': obj.setup,
+                'parameters': obj.parameters,
+                'body': obj.body,
+                'teardown': obj.teardown,
+                'validator': obj.validator,
             }
         else:
             raise IsNotExist(title='测试用例不存在', detail=f'id为{case_id}的测试用例不存在')

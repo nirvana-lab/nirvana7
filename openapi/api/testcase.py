@@ -42,16 +42,36 @@ def update(case_id, body):
     except Exception as e:
         raise DefalutError(title=f'更新测试用例异常', detail=f'{e}')
 
+def content(case_id):
+    try:
+        content = testcase.get_content_by_case_id(case_id)
+        return {
+            'case_id': case_id,
+            'content': content
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'获取测试用例内容异常', detail=f'{e}')
+
+
 def run(case_id):
 
-    import pytest
-    # result = pytest.main(['/Users/xumin/jo/nirvana7/openapi/specs/test_case.py'])
-    # print(result)
+    # import pytest
+    # # result = pytest.main(['/Users/xumin/jo/nirvana7/openapi/specs/test_case.py'])
+    # # print(result)
 
-    import os
-    res = os.popen(f'pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --capture=no')
+    try:
+        import os
+        res = os.popen(f'pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --capture=no')
 
-    print(f'{res.read()}')
+        result = res.read()
+        print(result)
 
+        return {
+            'result': result
+        }
+    except Exception as e:
+        raise DefalutError(title=f'执行测试用例异常', detail=f'执行id为{case_id}的测试用例异常:{e}')
 
 

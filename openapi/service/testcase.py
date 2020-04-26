@@ -42,6 +42,10 @@ def update_testcase(case_id, body, user):
     validator = body.get('validator')
     TestCase.update(case_id, case, description, setup, parameters, request_body, teardown, validator, user)
 
+def get_content_by_case_id(case_id):
+    content = TestCase.get_case_content_by_id(case_id)
+    return content
+
 def _is_repo(project_id, file_name, file_path, ref, blob_id, commit_id, last_commit_id, content, user):
     '''
     根据信息查询gitfile数据库，
