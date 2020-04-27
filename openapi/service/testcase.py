@@ -17,7 +17,7 @@ def get_testcase_list_by_method_and_path(project_id, file_path, ref, method, pat
         re_content = json.loads(re_content)
 
     pk = _is_repo(project_id, file_name, file_path, ref, blob_id, commit_id, last_commit_id, re_content, user)
-    case_list = TestCase.get_case_list_by_git_file_id(pk)
+    case_list = TestCase.get_case_list_by_git_file_id(pk, method, path)
     return case_list
 
 def create_testcase(project_id, file_path, method, path, body, user):

@@ -1,5 +1,6 @@
 import pytest
 from openapi.utils.pg_handle import Postgres
+from openapi.utils.case_handle import *
 
 @pytest.fixture()
 def case_handle(case_id):
@@ -26,20 +27,14 @@ def case_handle(case_id):
         'teardown': teardown
     }
 
-@pytest.fixture()
-def case_base_info(case_handle):
-    path = case_handle.get('path')
-    method = case_handle.get('method')
-    case = case_handle.get('case')
-    description = case_handle.get('description')
-    host = 'https://gitlab.daocloud.io/api/v4'
-    url = f'{host}{path}'
-    return url, method, case, description
 
-def test_base(case_base_info):
-    url, method, case, description = case_base_info
+def test_base(case_handle):
+    url, method, case, description, setup, parameters, body, teardown, validator = case_init(case_handle)
+
+    url, headers, query = params_handle(parameters, url)
     print(url)
     print(method)
     print(case)
     print(description)
     assert 1 < 2
+

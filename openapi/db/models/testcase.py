@@ -58,9 +58,10 @@ class TestCase(db.Entity):
 
     @classmethod
     @db_session
-    def get_case_list_by_git_file_id(cls, file_id):
+    def get_case_list_by_git_file_id(cls, file_id, mehtod, path):
         case_list = []
-        objs = select(n for n in TestCase if n.gitfile.id == file_id and n.delete_at == None)
+        objs = select(n for n in TestCase if n.gitfile.id == file_id and n.delete_at == None and
+                      n.method == mehtod and n.path == path)
         for obj in objs:
             tmp_dict = {
                 'id': obj.id,
