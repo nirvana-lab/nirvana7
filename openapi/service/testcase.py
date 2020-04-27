@@ -10,6 +10,7 @@ import json
 log = Logger('service/testcase')
 
 def get_testcase_list_by_method_and_path(project_id, file_path, ref, method, path, token, user):
+    method = method.lower()
     file_name, file_path, ref, blob_id, commit_id, last_commit_id, re_content = gitlab_handle.get_file_content_from_gitlab(project_id, file_path, ref, token)
     if file_name.endswith(('.yml', '.yaml')):
         re_content = yaml.load(re_content)
