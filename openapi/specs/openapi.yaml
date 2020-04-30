@@ -10,6 +10,75 @@ servers:
   description: 测试环境
 
 paths:
+
+  /envs:
+    get:
+      summary: 获取环境列表
+      description: 获取指定repo下的环境列表
+      operationId: openapi.api.env.list
+      parameters:
+      - description: gitlab的项目id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
+      - description: 分支名
+        in: query
+        name: ref
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 返回环境列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/env_list_structure'
+    post:
+      summary: 创建环境
+      description: 在指定的repo下创建环境
+      operationId: openapi.api.env.create
+      parameters:
+      - description: gitlab的项目id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
+      - description: 分支名
+        in: query
+        name: ref
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/env_structure'
+      responses:
+        200:
+          description: 创建环境成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_success'
+
+
   /testcases:
     get:
       summary: 获取指定接口的测试用例列表
@@ -272,3 +341,26 @@ components:
               description:
                 type: string
                 example: case-description
+
+    env_list_structure:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              env:
+                type: string
+              description:
+                type: string
+
+    env_structure:
+      type: object
+      properties:
+        env:
+          type: string
+        description:
+          type: string

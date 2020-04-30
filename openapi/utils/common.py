@@ -54,5 +54,8 @@ def char_changer(target):
     else:
         return str(target)
 
-def print_demo():
-    print("2342344324214")
+def print_content(content, title):
+    # print('\033[0;35;7m')
+    print(f"\n==================== {title} ====================\n")
+    print(content)
+    # print('\033[0m')

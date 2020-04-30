@@ -63,7 +63,7 @@ def run(case_id):
 
     try:
         import os
-        res = os.popen(f'pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --capture=no')
+        res = os.popen(f'python3 -m pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --capture=no')
 
         result = res.read()
         print(result)

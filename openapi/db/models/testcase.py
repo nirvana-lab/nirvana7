@@ -29,10 +29,6 @@ class TestCase(db.Entity):
     teardown = Optional(Json)
     gitfile = Required(GitFile)
 
-    # @classmethod
-    # @db_session
-    # def get_testcase_list_by_file_id(cls, file_id):
-
     @classmethod
     @db_session
     def create(cls, file_id, method, path, case, description, setup, parameters, body, teardown, validator, user):
@@ -60,8 +56,6 @@ class TestCase(db.Entity):
     @db_session
     def get_case_list_by_git_file_id(cls, file_id, method, path):
         case_list = []
-        print(method)
-        print(path)
         objs = select(n for n in TestCase if n.gitfile.id == file_id and n.delete_at == None and
                       n.method == method and n.path == path)
         for obj in objs:

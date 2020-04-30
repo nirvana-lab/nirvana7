@@ -12,6 +12,7 @@ from flask import g
 
 from openapi.db.models.gitfile import GitFile # noqa: F401
 from openapi.db.models.testcase import TestCase # noqa: F401
+from openapi.db.models.env import Env # noqa: F401
 
 if __name__ == '__main__':
     setup_logger()
@@ -22,7 +23,6 @@ if __name__ == '__main__':
     CORS(app.app)
     app.add_api('openapi.yaml', arguments={'title': 'api'})
     log.info('api.yaml loaded!')
-    log.info('file.yaml loaded!')
     app.add_error_handler(connexion.ProblemException, problem_exception_handler)
     app.add_error_handler(Exception, exception_handler)
     log.info('error handler added')

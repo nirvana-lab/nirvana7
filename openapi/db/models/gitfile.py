@@ -26,6 +26,7 @@ class GitFile(db.Entity):
     user = Required(str)
     info = Optional(Json)
     testcase = Set('TestCase')
+    env = Set('Env')
 
 
     @classmethod
