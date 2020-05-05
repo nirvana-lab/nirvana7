@@ -21,6 +21,7 @@ class Env(db.Entity):
     user = Required(str)
     info = Optional(Json)
     gitfile = Required(GitFile)
+    variable = Set('Variable')
 
     @classmethod
     @db_session
@@ -31,3 +32,18 @@ class Env(db.Entity):
             raise IsExist(title=f'环境名为{env}的环境已经存在', detail=f'已经存在的环境id为:{obj.id}')
         else:
             Env(env=env, description=description, user=user, gitfile=file_id)
+
+
+    @classmethod
+    @db_session
+    def list(cls, file_id):
+        objs = select(n for n in Env if n.delete_at == None and n.gitfile.id == file_id
+                      and n.gitfile.delete_at == None)
+        env_list = []
+        for obj in objs:
+            tmp_dict = {}
+            tmp_dict['id'] = obj.id
+            tmp_dict['env'] = obj.env
+            tmp_dict['description'] = obj.description
+            env_list.append(tmp_dict)
+        return env_list

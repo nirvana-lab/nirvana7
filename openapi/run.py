@@ -13,6 +13,8 @@ from flask import g
 from openapi.db.models.gitfile import GitFile # noqa: F401
 from openapi.db.models.testcase import TestCase # noqa: F401
 from openapi.db.models.env import Env # noqa: F401
+from openapi.db.models.variable import Variable # noqa: F401
+from openapi.db.models.gvariable import GlobalVariable # noqa: F401
 
 if __name__ == '__main__':
     setup_logger()

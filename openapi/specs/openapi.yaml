@@ -85,25 +85,13 @@ paths:
     get:
       summary: 获取全局变量
       description: 获取全局变量
-      operationId: openapi.api.variable.globalist
+      operationId: openapi.api.variable.globalvar
       tags:
       - variables
       parameters:
       - description: gitlab的项目id
         in: query
         name: project_id
-        schema:
-          type: string
-        required: true
-      - description: 文件路径
-        in: query
-        name: file_path
-        schema:
-         type: string
-        required: true
-      - description: 分支名
-        in: query
-        name: ref
         schema:
           type: string
         required: true
@@ -116,12 +104,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
-                    items:
-                      properties:
-                        env:
-                          type: string
-                        env_id:
+                    type: object
+                    properties:
+                        project_id:
                           type: string
                         metadata:
                           type: object
@@ -142,13 +127,10 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                properties:
-                  env_id:
-                    type: string
-                  metadata:
-                    type: object
+              properties:
+                metadata:
+                  type: object
+
       responses:
         '200':
           description: 更新全局变量成功
@@ -174,6 +156,18 @@ paths:
       - description: gitlab的项目id
         in: query
         name: project_id
+        schema:
+          type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
+      - description: 分支名
+        in: query
+        name: ref
         schema:
           type: string
         required: true

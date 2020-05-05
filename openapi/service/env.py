@@ -12,3 +12,8 @@ def create_env(project_id, file_path, ref, body, user):
     env = body.get('env')
     description = body.get('description')
     Env.create(file_id, env, description, user)
+
+def env_list(project_id, file_path, ref, user):
+    file_id = GitFile.get_obj_pk_by_project_id_and_file_path(project_id, file_path)
+    env_list = Env.list(file_id)
+    return env_list

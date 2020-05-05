@@ -4,8 +4,14 @@ from openapi.service import env
 from openapi.utils.exception_handle import DefalutError, IsExist, IsNotExist
 from flask import g
 
-def list():
-    pass
+def list(project_id, file_path, ref):
+    try:
+        data = env.env_list(project_id, file_path, ref, g.username)
+        return {
+            "data": data
+        }
+    except Exception as e:
+        raise DefalutError(title=f'获取环境列表异常', detail=f'{e}')
 
 def create(project_id, file_path, ref, body):
     try:
