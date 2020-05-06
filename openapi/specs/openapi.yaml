@@ -81,6 +81,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/create_success'
 
+  /envs/{env_id}:
+    delete:
+      summary: 删除环境
+      description: 删除指定环境
+      operationId: openapi.api.env.delete
+      tags:
+      - env
+      parameters:
+      - description: 环境id
+        in: path
+        name: env_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 删除环境成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delete_success'
+        400:
+          description: 删除环境失败
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delete_failed'
+
   /repo/variables:
     get:
       summary: 获取全局变量
@@ -430,6 +458,26 @@ components:
         detail:
           type: string
           example: 更新XX详情失败
+
+    delete_success:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 删除XX成功
+        detail:
+          type: string
+          example: 删除XX详情成功
+
+    delete_failed:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 删除XX失败
+        detail:
+          type: string
+          example: 删除XX详情失败
 
     testcase_structure:
       type: object

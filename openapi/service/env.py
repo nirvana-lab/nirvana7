@@ -20,3 +20,7 @@ def env_list(project_id, file_path, ref, user):
     file_id = GitFile.get_obj_pk_by_project_id_and_file_path(project_id, file_path)
     env_list = Env.list(file_id)
     return env_list
+
+def delete_env_by_id(env_id, user):
+    Env.delete_env_by_id(env_id, user)
+    # todo 删除环境的时候，把这个环境下的变量也删除

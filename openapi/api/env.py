@@ -24,3 +24,15 @@ def create(project_id, file_path, ref, body):
         raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:
         raise DefalutError(title=f'创建环境异常', detail=f'{e}')
+
+def delete(env_id):
+    try:
+        env.delete_env_by_id(env_id, g.username)
+        return {
+            'title': '删除环境成功',
+            'detail': '删除环境成功'
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'删除环境异常', detail=f'{e}')

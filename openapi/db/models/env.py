@@ -49,3 +49,13 @@ class Env(db.Entity):
             tmp_dict['description'] = obj.description
             env_list.append(tmp_dict)
         return env_list
+
+    @classmethod
+    @db_session
+    def delete_env_by_id(cls, env_id, user):
+        obj = get(n for n in Env if n.id == env_id and n.delete_at == None)
+        if obj:
+            obj.delete_at = datetime.datetime.utcnow()
+            obj.user = user
+        else:
+            raise IsNotExist(title='删除的环境不存在', detail=f'环境id为{env_id}的环境不存在')
