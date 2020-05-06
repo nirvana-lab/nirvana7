@@ -145,7 +145,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/update_failed'
 
-  /projects/variables:
+  /envs/{env_id}/variables:
     get:
       summary: 获取项目变量
       description: 获取项目变量
@@ -154,7 +154,7 @@ paths:
       - variables
       parameters:
       - description: 环境id
-        in: query
+        in: path
         name: env_id
         schema:
           type: string
@@ -185,7 +185,7 @@ paths:
       - variables
       parameters:
       - description: 环境id
-        in: query
+        in: path
         name: env_id
         schema:
           type: string
