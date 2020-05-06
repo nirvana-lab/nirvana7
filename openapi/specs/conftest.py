@@ -22,14 +22,16 @@ import pytest
 def pytest_addoption(parser):
     parser.addoption("--case", action="store",
         help="run all combinations")
+    parser.addoption('--env', action="store")
 
 def pytest_generate_tests(metafunc):
     if 'case_id' in metafunc.fixturenames:
-        # print(metafunc.config.getoption("--test"))
-        # print(type(metafunc.config.getoption("--test")))
         if metafunc.config.getoption('case'):
             list_id = metafunc.config.getoption("--case").split(',')
-            print(list_id)
         else:
-            list_id = [1, 2]
+            list_id = []
+        print(list_id)
         metafunc.parametrize("case_id", list_id)
+    if 'env' in metafunc.fixturenames:
+        print("44444444")
+        print(metafunc.config.getoption('env'))

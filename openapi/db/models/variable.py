@@ -52,4 +52,4 @@ class Variable(db.Entity):
         if obj:
             return obj.metadata
         else:
-            return {}
+            raise IsNotExist(title='环境里没有设置项目变量', detail=f'环境id为{env_id}的环境下没有找到项目变量')

@@ -25,9 +25,9 @@ def globalupdate(project_id, body):
     except Exception as e:
         raise DefalutError(title=f'更新全局变量异常', detail=f'{e}')
 
-def list(project_id, file_path, ref):
+def list(env_id):
     try:
-        data = variable.get_project_variable_list(project_id, file_path, ref)
+        data = variable.get_project_variable_by_env(env_id)
         return {
             'data': data
         }
@@ -36,9 +36,9 @@ def list(project_id, file_path, ref):
     except Exception as e:
         raise DefalutError(title=f'获取项目变量列表异常', detail=f'{e}')
 
-def update(project_id, file_path, ref, body):
+def update(env_id, body):
     try:
-        variable.update_project_variable(project_id, file_path, ref, body, g.username)
+        variable.update_project_variable(env_id, body, g.username)
         return {
             'title': '更新项目变量成功',
             'detail': '更新项目变量成功'
