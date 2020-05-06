@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openapi.db.db import db
-from pony.orm import (Json, PrimaryKey, Required, db_session, select, desc, Set, get, Optional)
+from pony.orm import (Json, PrimaryKey, Required, db_session, select, desc, Set, get, Optional, commit)
 import datetime
 from logbook import Logger
 from openapi.db.models.gitfile import GitFile
@@ -31,7 +31,9 @@ class Env(db.Entity):
         if obj:
             raise IsExist(title=f'环境名为{env}的环境已经存在', detail=f'已经存在的环境id为:{obj.id}')
         else:
-            Env(env=env, description=description, user=user, gitfile=file_id)
+            new_obj = Env(env=env, description=description, user=user, gitfile=file_id)
+            commit()
+            return new_obj.id
 
 
     @classmethod
