@@ -26,7 +26,7 @@ class GlobalVariable(db.Entity):
     def update_global_variable(cls, project_id, metadata, data, user):
         obj = get(n for n in GlobalVariable if n.project_id == project_id and n.delete_at == None)
         if obj:
-            obj.data = data,
+            obj.data = data
             obj.metadata = metadata
             obj.user = user
             obj.update_at = datetime.datetime.utcnow()

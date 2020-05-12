@@ -55,15 +55,14 @@ def content(case_id):
         raise DefalutError(title=f'获取测试用例内容异常', detail=f'{e}')
 
 
-def run(case_id):
-
+def run(case_id, env_id):
     # import pytest
     # # result = pytest.main(['/Users/xumin/jo/nirvana7/openapi/specs/test_case.py'])
     # # print(result)
 
     try:
         import os
-        res = os.popen(f'python3 -m pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --env=test --capture=no')
+        res = os.popen(f'python3 -m pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --env={env_id} --capture=no')
 
         result = res.read()
         print(result)

@@ -394,7 +394,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/update_success'
 
-  /testcases/{case_id}/run:
+  /testcases/{env_id}/{case_id}/run:
     get:
       summary: 运行测试用例
       description: 运行指定的测试用例
@@ -403,6 +403,12 @@ paths:
       - description: 测试用例id
         in: path
         name: case_id
+        schema:
+          type: string
+        required: true
+      - description: 环境id
+        in: path
+        name: env_id
         schema:
           type: string
         required: true

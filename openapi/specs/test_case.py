@@ -31,14 +31,9 @@ def case_handle(case_id):
     }
 
 @pytest.fixture()
-def variable_init(case_id):
-    return {
-        'host': 'https://gitlab.daocloud.io/api/v4',
-        'project_id': '1662',
-        'token': 'znNHzjCz_P6mgeUXbee6',
-        'ref': 'master'
-    }
-
+def variable_init(env_id):
+    variable = get_variable_by_env_id(env_id)
+    return variable
 
 def test_base(case_handle, variable_init):
     url, method, case, description, setup, parameters, body, teardown, validator = case_init(case_handle, variable_init)
@@ -53,5 +48,5 @@ def test_base(case_handle, variable_init):
     status_code, response_time, resp_content = resp_info(resp)
     # print_content(f'status_code: {status_code}\nresponse_time: {response_time}\nresp_content: {resp_content}', 'response_info')
 
-    validate_handle(case_handle.get('validator'), resp_content)
+    validate_handle(case_handle.get('validator'), resp_content, status_code, response_time)
     assert 1 < 2

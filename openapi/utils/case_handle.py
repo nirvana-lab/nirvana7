@@ -1,6 +1,8 @@
 import requests
 import json
 import jsonpath
+from openapi.utils.pg_handle import Postgres
+import copy
 
 def case_init(case_handle, variable_init):
     path = case_handle.get('path')
@@ -51,24 +53,59 @@ def resp_info(resp):
     content = json.loads(resp.content)
     return status_code, response_time, content
 
-def validate_handle(validators, resp_content):
+def validate_handle(validators, resp_content, status_code, response_time):
     for validator in validators:
-        print(validator)
         expect_value = eval_expect_value(validator.get('expect_value'))
-        actual_value = eval_actual_value(validator.get('key'), resp_content)
+        actual_value = eval_actual_value(validator.get('key'), validator.get('key_type'), resp_content, status_code, response_time)
+        assert_handle(validator.get('comparator'), actual_value, expect_value)
+
+
+def assert_handle(comparator, expect_value, actual_value):
+    try:
+        if comparator == 'equal':
+            assert expect_value == actual_value
+        elif comparator == 'less':
+            assert expect_value < actual_value
+    except:
+        print(f"assert error~~~ /n comparator:{comparator}/n expect_value:{expect_value}/n actual_value:{actual_value}")
 
 
 def eval_expect_value(expect_value):
     return expect_value
 
-def eval_actual_value(actual_key, resp_content):
-    actual_value = jsonpath.jsonpath(resp_content, actual_key)
-    if actual_value:
-        if len(actual_value) == 1:
-            return actual_value[0]
-        else:
-            return actual_value
+def eval_actual_value(actual_key, key_type, resp_content, status_code, response_time):
+    if actual_key == 'status_code':
+        re_data = status_code
+    elif actual_key == 'response_time':
+        re_data = response_time
     else:
-        return actual_value
+        actual_value = jsonpath.jsonpath(resp_content, actual_key)
+        if actual_value:
+            if len(actual_value) == 1:
+                re_data = actual_value[0]
+            else:
+                re_data = actual_value
+        else:
+            re_data = actual_value
+    re_data = convert_type(re_data, key_type)
+    return re_data
+
 
 # def assert_handle()
+
+def get_variable_by_env_id(env_id):
+    pg_class = Postgres()
+    repo_id = pg_class.get_repo_id_by_env_id(int(env_id))
+    global_variable = pg_class.get_global_variable_by_repo_id(repo_id)
+    env_variable = pg_class.get_variable_by_env_id(env_id)
+    tmp_variable = copy.deepcopy(global_variable)
+    tmp_variable.update(env_variable)
+    return tmp_variable
+
+def convert_type(convert_targer, convert_type):
+    if convert_type == 'int':
+        return int(convert_targer)
+    elif convert_type == 'str':
+        return str(convert_targer)
+    else:
+        return convert_targer
