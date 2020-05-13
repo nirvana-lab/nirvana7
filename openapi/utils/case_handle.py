@@ -137,11 +137,11 @@ class TestCaseParse(object):
         }
 
         # 处理body
-        request_body = json.loads(test_case.get('body'))
-        print(request_body)
-        print(type(request_body))
+        request_body = test_case.get('body')
         if request_body:
+            request_body = json.loads(request_body)
             tmp_case['request']['json'] = request_body
+        print(request_body)
 
         # 处理断言
         validate_list = []
