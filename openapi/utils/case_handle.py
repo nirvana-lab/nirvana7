@@ -136,6 +136,13 @@ class TestCaseParse(object):
             'headers': headers_dict
         }
 
+        # 处理body
+        request_body = json.loads(test_case.get('body'))
+        print(request_body)
+        print(type(request_body))
+        if request_body:
+            tmp_case['request']['json'] = request_body
+
         # 处理断言
         validate_list = []
         for validate in test_case.get('validator'):
