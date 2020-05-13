@@ -140,9 +140,9 @@ class TestCaseParse(object):
         validate_list = []
         for validate in test_case.get('validator'):
             tmp_dict = {}
-            if validate.get('key_type') == 'int':
+            if validate.get('key_type') == 'integer':
                 expect_value = int(validate.get('expect_value'))
-            elif validate.get('key_type') == 'str':
+            elif validate.get('key_type') == 'string':
                 expect_value = str(validate.get('expect_value'))
             else:
                 expect_value = validate.get('expect_value')
