@@ -46,10 +46,20 @@ class Variable(db.Entity):
 
     @classmethod
     @db_session
-    def get_variable_by_env_id(cls, env_id):
+    def get_metadata_variable_by_env_id(cls, env_id):
         obj = get(n for n in Variable if n.env.id == env_id and n.env.delete_at == None
                   and n.delete_at == None)
         if obj:
             return obj.metadata
+        else:
+            raise IsNotExist(title='环境里没有设置项目变量', detail=f'环境id为{env_id}的环境下没有找到项目变量')
+
+    @classmethod
+    @db_session
+    def get_data_variable_by_env_id(cls, env_id):
+        obj = get(n for n in Variable if n.env.id == env_id and n.env.delete_at == None
+                  and n.delete_at == None)
+        if obj:
+            return obj.data
         else:
             raise IsNotExist(title='环境里没有设置项目变量', detail=f'环境id为{env_id}的环境下没有找到项目变量')

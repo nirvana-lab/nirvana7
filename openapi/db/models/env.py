@@ -59,3 +59,13 @@ class Env(db.Entity):
             obj.user = user
         else:
             raise IsNotExist(title='删除的环境不存在', detail=f'环境id为{env_id}的环境不存在')
+
+
+    @classmethod
+    @db_session
+    def get_project_id_by_env_id(cls, env_id):
+        obj = get(n for n in Env if n.id == env_id and n.delete_at == None)
+        if obj:
+            return obj.gitfile.project_id
+        else:
+            raise IsNotExist(title='查询的环境不存在', detail=f'环境id为{env_id}的环境不存在')

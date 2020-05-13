@@ -10,3 +10,4 @@ allure-pytest>=2.8.6
 termcc>=2019.8.2
 logbook>=1.5.2
 pyjwt==1.7.1
+httprunner==3.0.1

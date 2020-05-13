@@ -4,6 +4,7 @@ from openapi.service import testcase
 from openapi.utils.exception_handle import DefalutError, IsExist, IsNotExist
 from flask import g
 
+
 def list(project_id, file_path, ref, method, path):
     try:
         token = connexion.request.headers.get('Authorization')
@@ -56,20 +57,9 @@ def content(case_id):
 
 
 def run(case_id, env_id):
-    # import pytest
-    # # result = pytest.main(['/Users/xumin/jo/nirvana7/openapi/specs/test_case.py'])
-    # # print(result)
-
     try:
-        import os
-        res = os.popen(f'python3 -m pytest /Users/xumin/jo/nirvana7/openapi/specs/test_case.py --case={case_id} --env={env_id} --capture=no')
-
-        result = res.read()
-        print(result)
-
-        return {
-            'result': result
-        }
+        result = testcase.run_test_case(case_id, env_id)
+        return result
     except Exception as e:
         raise DefalutError(title=f'执行测试用例异常', detail=f'执行id为{case_id}的测试用例异常:{e}')
 

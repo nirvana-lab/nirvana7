@@ -74,6 +74,8 @@ class TestCase(db.Entity):
         if obj:
             return {
                 'case': obj.case,
+                'method': obj.method,
+                'path': obj.path,
                 'description': obj.description,
                 'setup': obj.setup,
                 'parameters': obj.parameters,

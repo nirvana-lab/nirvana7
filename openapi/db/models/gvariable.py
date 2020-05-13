@@ -35,7 +35,7 @@ class GlobalVariable(db.Entity):
 
     @classmethod
     @db_session
-    def get_global_variable(cls, project_id):
+    def get_global_metadata_variable(cls, project_id):
         obj = get(n for n in GlobalVariable if n.project_id == project_id and n.delete_at == None)
         if obj:
             data = {
@@ -43,5 +43,14 @@ class GlobalVariable(db.Entity):
                 'metadata': obj.metadata
             }
             return data
+        else:
+            raise IsNotExist(title='全部变量不存在', detail=f'repo id为{project_id}的全局变量不存在')
+
+    @classmethod
+    @db_session
+    def get_global_variable(cls, project_id):
+        obj = get(n for n in GlobalVariable if n.project_id == project_id and n.delete_at == None)
+        if obj:
+            return obj.data
         else:
             raise IsNotExist(title='全部变量不存在', detail=f'repo id为{project_id}的全局变量不存在')

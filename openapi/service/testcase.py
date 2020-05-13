@@ -2,7 +2,7 @@
 from openapi.db.models.gitfile import GitFile
 from openapi.db.models.testcase import TestCase
 from logbook import Logger
-from openapi.utils import gitlab_handle
+from openapi.utils import gitlab_handle,case_handle
 from openapi.utils.exception_handle import IsExist, IsNotExist, DefalutError
 import yaml
 import json
@@ -62,3 +62,11 @@ def _is_repo(project_id, file_name, file_path, ref, blob_id, commit_id, last_com
     except DefalutError as e:
         raise DefalutError(title=f'获取文件异常', detail=f'{e.detail}')
 
+def run_test_case(case_id, env_id):
+    from httprunner.api import HttpRunner
+    runner = HttpRunner()
+
+    test_case_parse = case_handle.TestCaseParse(case_id, env_id)
+    case = test_case_parse.get_httprunner_test_case_json()
+    reslut = runner.run(case)
+    return reslut
