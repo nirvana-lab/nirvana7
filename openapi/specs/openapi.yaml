@@ -394,6 +394,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/update_success'
 
+    delete:
+      summary: 删除测试用例
+      description: 删除指定的测试用例
+      operationId: openapi.api.testcase.delete
+      parameters:
+      - description: 测试用例id
+        in: path
+        name: case_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 删除测试用列成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delete_success'
+
   /testcases/{env_id}/{case_id}/run:
     get:
       summary: 运行测试用例

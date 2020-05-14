@@ -43,6 +43,14 @@ def update(case_id, body):
     except Exception as e:
         raise DefalutError(title=f'更新测试用例异常', detail=f'{e}')
 
+def delete(case_id):
+    try:
+        testcase.delete_testcase_by_id(case_id, g.username)
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'删除测试用例异常', detail=f'{e}')
+
 def content(case_id):
     try:
         content = testcase.get_content_by_case_id(case_id)
@@ -60,6 +68,8 @@ def run(case_id, env_id):
     try:
         result = testcase.run_test_case(case_id, env_id)
         return result
+    except DefalutError as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:
         raise DefalutError(title=f'执行测试用例异常', detail=f'执行id为{case_id}的测试用例异常:{e}')
 

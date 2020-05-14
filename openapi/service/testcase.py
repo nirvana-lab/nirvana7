@@ -43,6 +43,9 @@ def update_testcase(case_id, body, user):
     validator = body.get('validator')
     TestCase.update(case_id, case, description, setup, parameters, request_body, teardown, validator, user)
 
+def delete_testcase_by_id(case_id, user):
+    TestCase.delete_case_by_id(case_id, user)
+
 def get_content_by_case_id(case_id):
     content = TestCase.get_case_content_by_id(case_id)
     return content
@@ -68,5 +71,5 @@ def run_test_case(case_id, env_id):
 
     test_case_parse = case_handle.TestCaseParse(case_id, env_id)
     case = test_case_parse.get_httprunner_test_case_json()
-    reslut = runner.run(case)
-    return reslut
+    result = runner.run(case)
+    return result
