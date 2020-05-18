@@ -23,3 +23,6 @@ def create_script(project_id, body, user):
     script_file_path = os.path.join(script_save_path, script_file)
     with open(script_file_path, 'w') as name:
         name.write(content)
+
+def get_script_list_by_project_id(project_id):
+    return Script.list(project_id)
