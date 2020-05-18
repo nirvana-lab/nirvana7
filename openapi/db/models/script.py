@@ -47,3 +47,27 @@ class Script(db.Entity):
                 }
                 re_list.append(tmp_dict)
         return re_list
+
+    @classmethod
+    @db_session
+    def update(cls, script_id, script, description, content, user):
+        obj = get(n for n in Script if n.delete_at == None and n.id == script_id)
+        if obj:
+            obj.script = script
+            obj.description = description
+            obj.content = content
+            obj.user = user
+            obj.update_at = datetime.datetime.utcnow()
+        else:
+            raise IsNotExist(title='脚本不存在', detail=f'脚本id为{script_id}的脚本不存在')
+
+    @classmethod
+    @db_session
+    def delete(cls, script_id, user):
+        obj = get(n for n in Script if n.delete_at == None and n.id == script_id)
+        if obj:
+            obj.user = user
+            obj.delete_at = datetime.datetime.utcnow()
+            return obj.script_file, obj.project_id
+        else:
+            raise IsNotExist(title='脚本不存在', detail=f'脚本id为{script_id}的脚本不存在')

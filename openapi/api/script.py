@@ -26,3 +26,27 @@ def create(project_id, body):
     except Exception as e:
         raise DefalutError(title=f'创建脚本异常', detail=f'{e}')
 
+
+def update(script_id, body):
+    try:
+        script.update_script_content_by_script_id(script_id, body, g.username)
+        return {
+            'title': '更新脚本成功',
+            'detail': '更新脚本成功'
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'更新脚本异常', detail=f'{e}')
+
+def delete(script_id):
+    try:
+        script.delete_script_by_script_id(script_id, g.username)
+        return {
+            'title': '删除脚本成功',
+            'detail': '删除脚本成功'
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'删除脚本异常', detail=f'{e}')
