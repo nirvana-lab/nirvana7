@@ -245,6 +245,8 @@ paths:
       summary: 获取指定接口的测试用例列表
       operationId: openapi.api.testcase.list
       description: 获取指定接口的测试用例列表
+      tags:
+      - testcase
       parameters:
       - description: gitlab的项目id
         in: query
@@ -294,6 +296,8 @@ paths:
       summary: 创建测试用例
       operationId: openapi.api.testcase.create
       description: 创建测试用例
+      tags:
+      - testcase
       parameters:
       - description: gitlab的项目id
         in: query
@@ -350,6 +354,8 @@ paths:
       summary: 获取测试用例
       description: 根据id获取指定的测试用例
       operationId: openapi.api.testcase.content
+      tags:
+      - testcase
       parameters:
       - description: 测试用例id
         in: path
@@ -374,6 +380,8 @@ paths:
       summary: 更新测试用例
       description: 更新指定的测试用例
       operationId: openapi.api.testcase.update
+      tags:
+      - testcase
       parameters:
       - description: 测试用例id
         in: path
@@ -398,6 +406,8 @@ paths:
       summary: 删除测试用例
       description: 删除指定的测试用例
       operationId: openapi.api.testcase.delete
+      tags:
+      - testcase
       parameters:
       - description: 测试用例id
         in: path
@@ -418,6 +428,8 @@ paths:
       summary: 运行测试用例
       description: 运行指定的测试用例
       operationId: openapi.api.testcase.run
+      tags:
+      - testcase
       parameters:
       - description: 测试用例id
         in: path
@@ -441,6 +453,66 @@ paths:
                 properties:
                   log:
                     type: string
+
+  /scripts:
+    get:
+      summary:  获取脚本列表
+      description: 获取脚本列表
+      operationId: openapi.api.script.list
+      tags:
+      - script
+      parameters:
+      - description: project_id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 脚本列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+
+    post:
+      summary: 创建脚本
+      description: 创建脚本
+      operationId: openapi.api.script.create
+      tags:
+      - script
+      parameters:
+      - description: project_id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                script:
+                  type: string
+                script_file:
+                  type: string
+                description:
+                  type: string
+                content:
+                  type: string
+      responses:
+        200:
+          description: 创建脚本成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_success'
 
 components:
   schemas:

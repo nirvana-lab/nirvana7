@@ -26,6 +26,16 @@ def is_exist_path(path):
         log.error(f'type:{type(e)}, {e}')
 
 
+def is_exist_python_path(path):
+    try:
+        if not os.path.isdir(path):
+            os.makedirs(path)
+            open(f'{path}/__init__.py', 'w')
+    except Exception as e:
+        os.makedirs(path)
+        open(f'{path}/__init__.py', 'w')
+        log.error(f'type:{type(e)}, {e}')
+
 def delete_file(path, file):
     try:
         if os.path.exists(path):
@@ -53,9 +63,3 @@ def char_changer(target):
         return json.dumps(target)
     else:
         return str(target)
-
-def print_content(content, title):
-    # print('\033[0;35;7m')
-    print(f"\n==================== {title} ====================\n")
-    print(content)
-    # print('\033[0m')

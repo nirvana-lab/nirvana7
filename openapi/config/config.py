@@ -1,5 +1,5 @@
 import os
-from openapi.utils.common import is_exist_path
+from openapi.utils.common import is_exist_python_path
 
 class NirvanaConfig(object):
 
@@ -16,9 +16,14 @@ class NirvanaConfig(object):
             'SCRIPT_SAVE_PATH') else '/Users/xumin/jo/workspace'
         return work_space
 
-    def script_save_path(self):
-        script_save_path = os.getenv('SCRIPT_SAVE_PATH') if  os.getenv('SCRIPT_SAVE_PATH') else f'{os.getcwd()}/openapi/script'
+    def script_save_path(self, project_id):
+        script_save_path = os.getenv('SCRIPT_SAVE_PATH') if  os.getenv('SCRIPT_SAVE_PATH') else f'{os.getcwd()}/openapi/script/{project_id}'
         return script_save_path
+
+    def script_save_fold(self):
+        script_fold = os.getenv('SCRIPT_SAVE_PATH') if os.getenv(
+            'SCRIPT_SAVE_PATH') else f'{os.getcwd()}/openapi/script'
+        return script_fold
 
     def report_save_path(self):
         report_save_path = os.getenv('REPORT_SAVE_PATH') if  os.getenv('REPORT_SAVE_PATH') else f'{os.getcwd()}/openapi/report'
@@ -35,7 +40,5 @@ class NirvanaConfig(object):
         }
 
 def check_config_path():
-    script_save_path = NirvanaConfig().script_save_path()
-    is_exist_path(script_save_path)
-    report_save_path = NirvanaConfig().report_save_path()
-    is_exist_path(report_save_path)
+    script_save_fold = NirvanaConfig().script_save_fold()
+    is_exist_python_path(script_save_fold)

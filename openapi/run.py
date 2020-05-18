@@ -9,12 +9,14 @@ from openapi.utils.log_handle import setup_logger
 from openapi.utils.problem_handle import problem_exception_handler, exception_handler
 from openapi.db.db import db
 from flask import g
+from openapi.config.config import check_config_path
 
 from openapi.db.models.gitfile import GitFile # noqa: F401
 from openapi.db.models.testcase import TestCase # noqa: F401
 from openapi.db.models.env import Env # noqa: F401
 from openapi.db.models.variable import Variable # noqa: F401
 from openapi.db.models.gvariable import GlobalVariable # noqa: F401
+from openapi.db.models.script import Script # noqa: F401
 
 if __name__ == '__main__':
     setup_logger()
@@ -33,4 +35,5 @@ if __name__ == '__main__':
     def before():
         g.username = "nirvana7"
 
+    check_config_path()
     app.run(host='0.0.0.0', debug=True)

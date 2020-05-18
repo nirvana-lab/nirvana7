@@ -133,3 +133,6 @@ idea
 
 # Pyre type checker
 .pyre/
+
+./script
+/script

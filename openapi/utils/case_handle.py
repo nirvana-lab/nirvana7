@@ -7,7 +7,9 @@ from openapi.db.models.testcase import TestCase
 from openapi.db.models.env import Env
 from openapi.db.models.gvariable import GlobalVariable
 from openapi.db.models.variable import Variable
+from openapi.db.models.script import Script
 from openapi.utils.exception_handle import IsExist, IsNotExist, DefalutError
+from httprunner.loader.load import load_module_functions
 
 def case_init(case_handle, variable_init):
     path = case_handle.get('path')
@@ -72,9 +74,10 @@ def get_variable_by_env_id(env_id):
 
 class TestCaseParse(object):
 
-    def __init__(self, case_id, env_id):
+    def __init__(self, case_id, env_id, project_id):
         self.case_id = case_id
         self.env_id = env_id
+        self.project_id = project_id
         self.host = ''
         self.test_case_dict = {}
         self.case_json = {
@@ -98,6 +101,16 @@ class TestCaseParse(object):
         for k, v in tmp_variable.items():
             tmp_list.append({k: v})
         return tmp_list
+
+    def set_func(self):
+        func_list = Script.list(self.project_id)
+        module_dict = {}
+        if func_list:
+            for func in func_list:
+                import_module = __import__(f"openapi.script.{self.project_id}.{func.get('script_file')[:-3]}", fromlist=True)
+                tmp_dict = load_module_functions(import_module)
+                module_dict.update(tmp_dict)
+        self.case_json['project_mapping'] = { 'functions': module_dict}
 
     def set_variable(self):
         project_id = Env.get_project_id_by_env_id(self.env_id)
@@ -141,7 +154,6 @@ class TestCaseParse(object):
         if request_body:
             request_body = json.loads(request_body)
             tmp_case['request']['json'] = request_body
-        print(request_body)
 
         # 处理断言
         validate_list = []
@@ -161,6 +173,7 @@ class TestCaseParse(object):
 
     def get_httprunner_test_case_json(self):
         self.test_case_dict = TestCase.get_case_content_by_id(self.case_id)
+        self.set_func()
         self.set_variable()
         self.set_steps()
         return self.case_json
