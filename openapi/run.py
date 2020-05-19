@@ -9,7 +9,7 @@ from openapi.utils.log_handle import setup_logger
 from openapi.utils.problem_handle import problem_exception_handler, exception_handler
 from openapi.db.db import db
 from flask import g
-from openapi.config.config import check_config_path
+from openapi.config.config import check_config_path, check_httprunner_log_path
 
 from openapi.db.models.gitfile import GitFile # noqa: F401
 from openapi.db.models.testcase import TestCase # noqa: F401
@@ -36,4 +36,5 @@ if __name__ == '__main__':
         g.username = "nirvana7"
 
     check_config_path()
+    check_httprunner_log_path()
     app.run(host='0.0.0.0', debug=True)

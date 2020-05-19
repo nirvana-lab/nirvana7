@@ -2,6 +2,7 @@ from openapi.utils.exception_handle import FileError
 from logbook import Logger
 import os
 import json
+import time
 
 log = Logger('utils/common')
 
@@ -63,3 +64,6 @@ def char_changer(target):
         return json.dumps(target)
     else:
         return str(target)
+
+def init_time_stamp():
+    return int(time.time() * 1000000)

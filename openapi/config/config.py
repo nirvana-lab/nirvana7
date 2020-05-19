@@ -1,5 +1,5 @@
 import os
-from openapi.utils.common import is_exist_python_path
+from openapi.utils.common import is_exist_python_path, is_exist_path
 
 class NirvanaConfig(object):
 
@@ -25,6 +25,12 @@ class NirvanaConfig(object):
             'SCRIPT_SAVE_PATH') else f'{os.getcwd()}/openapi/script'
         return script_fold
 
+    def httprunner_log_save_path(self):
+        httprunner_log_path = os.getenv('SCRIPT_SAVE_PATH') if os.getenv(
+            'HTTPRUNNER_LOG_SAVE_PATH') else f'{os.getcwd()}/openapi/httprunner_log'
+        return httprunner_log_path
+
+
     def report_save_path(self):
         report_save_path = os.getenv('REPORT_SAVE_PATH') if  os.getenv('REPORT_SAVE_PATH') else f'{os.getcwd()}/openapi/report'
         return report_save_path
@@ -42,3 +48,7 @@ class NirvanaConfig(object):
 def check_config_path():
     script_save_fold = NirvanaConfig().script_save_fold()
     is_exist_python_path(script_save_fold)
+
+def check_httprunner_log_path():
+    httprunner_log_save_path = NirvanaConfig().httprunner_log_save_path()
+    is_exist_path(httprunner_log_save_path)

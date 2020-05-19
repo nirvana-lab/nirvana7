@@ -42,8 +42,7 @@ class Script(db.Entity):
                     'id': obj.id,
                     'script': obj.script,
                     'script_file': obj.script_file,
-                    'description': obj.description,
-                    'content': obj.content
+                    'description': obj.description
                 }
                 re_list.append(tmp_dict)
         return re_list
