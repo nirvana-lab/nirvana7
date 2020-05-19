@@ -515,6 +515,38 @@ paths:
                 $ref: '#/components/schemas/create_success'
 
   /scripts/{script_id}:
+    get:
+      summary: 获取指定脚本的内容
+      description: 获取指定脚本的内容
+      operationId: openapi.api.script.content
+      tags:
+      - script
+      parameters:
+      - description: script_id
+        in: path
+        name: script_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 获取脚本的内容
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  script:
+                    type: string
+                  script_file:
+                    type: string
+                  description:
+                    type: string
+                  content:
+                    type: string
+
     put:
       summary: 更新脚本
       description: 更新脚本

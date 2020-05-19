@@ -50,3 +50,14 @@ def delete(script_id):
         raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:
         raise DefalutError(title=f'删除脚本异常', detail=f'{e}')
+
+def content(script_id):
+    try:
+        data = script.get_content_by_script_id(script_id)
+        return {
+            'data': data
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'获取脚本详情异常', detail=f'{e}')

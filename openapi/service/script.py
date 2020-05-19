@@ -40,3 +40,6 @@ def delete_script_by_script_id(script_id, user):
     script_delete_path = nirvana_config.script_save_path(project_id)
     script_file_path = os.path.join(script_delete_path, script_file)
     delete_file(script_file_path, script_file)
+
+def get_content_by_script_id(script_id):
+    return Script.get_content_by_script_id(script_id)

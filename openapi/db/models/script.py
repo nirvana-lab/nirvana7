@@ -70,3 +70,18 @@ class Script(db.Entity):
             return obj.script_file, obj.project_id
         else:
             raise IsNotExist(title='脚本不存在', detail=f'脚本id为{script_id}的脚本不存在')
+
+    @classmethod
+    @db_session
+    def get_content_by_script_id(cls, script_id):
+        obj = get(n for n in Script if n.delete_at == None and n.id == script_id)
+        if obj:
+            return {
+                'id': obj.id,
+                'script': obj.script,
+                'script_file': obj.script_file,
+                'description': obj.description,
+                'content': obj.content
+            }
+        else:
+            raise IsNotExist(title='脚本不存在', detail=f'脚本id为{script_id}的脚本不存在')
