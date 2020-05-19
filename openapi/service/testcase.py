@@ -7,6 +7,8 @@ from openapi.utils import gitlab_handle,case_handle
 from openapi.utils.exception_handle import IsExist, IsNotExist, DefalutError
 import yaml
 import json
+from openapi.config import config
+from openapi.utils.common import init_time_stamp
 
 log = Logger('service/testcase')
 
@@ -70,9 +72,15 @@ def run_test_case(case_id, env_id):
 
     project_id = Env.get_project_id_by_env_id(env_id)
     from httprunner.api import HttpRunner
-    runner = HttpRunner()
+    httprunner_log_path = config.NirvanaConfig().httprunner_log_save_path()
+    log_name = f'{httprunner_log_path}/{init_time_stamp()}.txt'
+    runner = HttpRunner(log_level="DEBUG", log_file=log_name)
 
     test_case_parse = case_handle.TestCaseParse(case_id, env_id, project_id)
     case = test_case_parse.get_httprunner_test_case_json()
     result = runner.run(case)
+
+    with open(log_name, 'r') as f:
+        data = f.read()
+    result['console'] = data
     return result

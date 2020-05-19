@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from openapi.db.models.script import Script
 from logbook import Logger
-from openapi.utils import gitlab_handle,case_handle
-from openapi.utils.exception_handle import IsExist, IsNotExist, DefalutError
 from openapi.config.config import NirvanaConfig
 from openapi.utils.common import is_exist_python_path, delete_file
 import os
