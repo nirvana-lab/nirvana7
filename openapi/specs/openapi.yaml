@@ -744,6 +744,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/update_success'
 
+    delete:
+      summary: 删除测试套件
+      description: 删除测试套件
+      operationId: openapi.api.testsuit.delete
+      tags:
+      - testsuit
+      parameters:
+      - description: suit_id
+        in: path
+        name: suit_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 删除测试套件成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/delete_success'
+
   /testsuits/{suit_id}/run:
     get:
       summary: 运行指定的测试套件

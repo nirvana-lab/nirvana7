@@ -72,3 +72,13 @@ class TestSuit(db.Entity):
             obj.update_at = datetime.datetime.utcnow()
         else:
             raise IsNotExist(title='测试套件不存在', detail=f'id为{suit_id}的测试套件不存在')
+
+    @classmethod
+    @db_session
+    def delete_suit_by_suit_id(cls, suit_id, user):
+        obj = get(n for n in TestSuit if n.id == suit_id and n.delete_at == None)
+        if obj:
+            obj.delete_at = datetime.datetime.utcnow()
+            obj.user = user
+        else:
+            raise IsNotExist(title='测试套件不存在', detail=f'id为{suit_id}的测试套件不存在')

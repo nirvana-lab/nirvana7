@@ -60,3 +60,15 @@ def content(suit_id):
         raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:
         raise DefalutError(title=f'获取测试套件异常', detail=f'{e}')
+
+def delete(suit_id):
+    try:
+        testsuit.delete_testsuit_by_suit_id(suit_id)
+        return {
+            'title': '删除测试套件成功',
+            'detail': '删除测试套件成功'
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'获取测试套件异常', detail=f'{e}')
