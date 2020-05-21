@@ -4,10 +4,7 @@ info:
   title: nirvana
   version: 1.0.0
 servers:
-- url: http://0.0.0.0:9090/api/
-  description: 本地调试环境
-- url: http://10.10.130.100:9090/api/
-  description: 测试环境
+- url:  {{ url }}
 
 paths:
   /envs:
@@ -601,6 +598,173 @@ paths:
               schema:
                 $ref: '#/components/schemas/delete_success'
 
+  /testsuits:
+    get:
+      summary: 获取测试套件列表
+      description: 获取测试套件列表
+      operationId: openapi.api.testsuit.list
+      tags:
+      - testsuit
+      parameters:
+      - description: project_id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 测试套件列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        suit:
+                          type: string
+                        description:
+                          type: string
+
+    post:
+      summary: 创建测试套件
+      description: 创建测试套件
+      operationId: openapi.api.testsuit.create
+      tags:
+      - testsuit
+      parameters:
+      - description: project_id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                caselist:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      suit_type:
+                        type: string
+                      exec_id:
+                        type: string
+                      env_id:
+                        type: string
+
+
+      responses:
+        200:
+          description: 创建测试套件成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_success'
+
+  /testsuits/{suit_id}:
+    get:
+      summary: 获取指定测试套件的内容
+      description: 获取指定测试套件的内容
+      operationId: openapi.api.testsuit.content
+      tags:
+      - testsuit
+      parameters:
+      - description: suit_id
+        in: path
+        name: suit_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 指定测试套件的内容
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        suit_type:
+                          type: string
+                        exec_id:
+                          type: string
+                        env_id:
+                          type: string
+
+    put:
+      summary: 更新指定的测试套件
+      description: 更新指定的测试套件
+      operationId: openapi.api.testsuit.update
+      tags:
+      - testsuit
+      parameters:
+      - description: suit_id
+        in: path
+        name: suit_id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                caselist:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      suit_type:
+                        type: string
+                      exec_id:
+                        type: string
+                      env_id:
+                        type: string
+      responses:
+        200:
+          description: 更新测试套件成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/update_success'
+
+  /testsuits/{suit_id}/run:
+    get:
+      summary: 运行指定的测试套件
+      description: 运行指定的测试套件
+      operationId: openapi.api.testsuit.run
+      tags:
+      - testsuit
+      parameters:
+      - description: suit_id
+        in: path
+        name: suit_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 运行测试套件成功
+          content:
+            application/json:
+              schema:
+                type: object
 
 components:
   schemas:

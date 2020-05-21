@@ -57,6 +57,7 @@ class Script(db.Entity):
             obj.content = content
             obj.user = user
             obj.update_at = datetime.datetime.utcnow()
+            return obj.script_file, obj.project_id
         else:
             raise IsNotExist(title='脚本不存在', detail=f'脚本id为{script_id}的脚本不存在')
 

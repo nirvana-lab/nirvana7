@@ -1,0 +1,45 @@
+openapi: "3.0.0"
+
+info:
+  title: 文档
+  version: 1.0.0
+
+servers:
+- url:  {{ url }}
+
+paths:
+
+  /{filename}:
+    get:
+      summary: static file render
+      tags:
+        - static
+      description: fake uaa
+      operationId: openapi.api.file.render
+      responses:
+        200:
+          description: file access response
+          content:
+            text/html:
+              schema:
+                type: string
+                example: |
+                  <html>
+                    <body>
+                    hello world
+                    </body>
+                  </html>
+      parameters:
+        - name: filename
+          in: path
+          description: key
+          required: true
+          schema:
+            type: string
+            example: "index.html"
+        - name: TRACE_ID
+          in: header
+          schema:
+            type: string
+            example: 00000001
+          required: false

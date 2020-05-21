@@ -10,6 +10,7 @@ from openapi.db.models.variable import Variable
 from openapi.db.models.script import Script
 from openapi.utils.exception_handle import IsExist, IsNotExist, DefalutError
 from httprunner.loader.load import load_module_functions
+import os
 
 def case_init(case_handle, variable_init):
     path = case_handle.get('path')
@@ -186,4 +187,124 @@ class TestCaseParse(object):
         return query_string
 
 
+class TestSuitParse(object):
+
+    def __init__(self, case_id_env_id_list, project_id):
+        self.case_id_env_id_list = case_id_env_id_list
+        self.project_id = project_id
+        self.host = None
+        self.suit_json = {
+            'project_mapping': {
+                'env': {},
+                'PWD': os.getcwd(),
+                'functions': {}
+            },
+            'testsuites':[
+                {
+                    'config': {
+                        'name': 'name of config',
+                        'variables': {}
+                    },
+                    'testcases': {
+
+                    }
+
+                }
+            ]
+        }
+
+    def set_func(self):
+        func_list = Script.list(self.project_id)
+        module_dict = {}
+        if func_list:
+            for func in func_list:
+                import_module = __import__(f"openapi.script.{self.project_id}.{func.get('script_file')[:-3]}", fromlist=True)
+                tmp_dict = load_module_functions(import_module)
+                module_dict.update(tmp_dict)
+        self.suit_json['project_mapping']['functions'] =  module_dict
+
+    def set_globle_variable(self):
+        global_variable = GlobalVariable.get_global_variable(self.project_id)
+        self.suit_json['testsuites'][0]['config']['variables'] = global_variable
+
+    def get_env_rariable(self, env_id):
+        env_variable = Variable.get_data_variable_by_env_id(env_id)
+        if env_variable.get('host'):
+            self.host = env_variable.get('host')
+        else:
+            raise DefalutError(title=f'请在环境变量中设置host', detail=f'在环境id为{self.env_id}的环境变量中没有找到环境变量host')
+        return env_variable
+
+    def get_httprunner_test_suite_json(self):
+        self.set_func()
+        self.set_globle_variable()
+
+        for case_id_env_id in self.case_id_env_id_list:
+            tmp_case = TestCase.get_case_content_by_id(case_id_env_id.get('exec_id'))
+            env_variable = self.get_env_rariable(case_id_env_id.get('env_id'))
+
+            # 处理url，请求参数，请求头
+            url = self.host + tmp_case.get('path')
+            query_string = None
+            headers_dict = {}
+            for param in tmp_case.get('parameters'):
+                if param.get('in') == 'header':
+                    headers_dict[param.get('key')] = param.get('value')
+                elif param.get('in') == 'path':
+                    url = url.replace("{" + param.get('key') + "}", param.get('value'))
+                elif param.get('in') == 'query':
+                    query_string = self._query_parse(query_string, param)
+            if query_string:
+                url = url + query_string
+
+            tmp_case_parse = {
+                'name': tmp_case.get('case'),
+                'testcase': 'dummy.yaml',
+                'variables': env_variable,
+                'testcase_def': {
+                    'config': {
+                        'name': tmp_case.get('case'),
+                    },
+                    'teststeps': [
+                        {
+                            'name': tmp_case.get('case'),
+                            'request': {
+                                'url': url,
+                                'method': tmp_case.get('method').upper(),
+                                'headers': headers_dict
+                            }
+                        }
+                    ]
+                }
+            }
+
+            # 处理body
+            request_body = tmp_case.get('body')
+            if request_body:
+                request_body = json.loads(request_body)
+                tmp_case_parse['testcase_def']['teststeps'][0]['request']['json'] = request_body
+
+            # 处理断言
+            validate_list = []
+            for validate in tmp_case.get('validator'):
+                tmp_dict = {}
+                if validate.get('key_type') == 'integer':
+                    expect_value = int(validate.get('expect_value'))
+                elif validate.get('key_type') == 'string':
+                    expect_value = str(validate.get('expect_value'))
+                else:
+                    expect_value = validate.get('expect_value')
+
+                tmp_dict[validate.get('comparator')] = [validate.get('key'), expect_value]
+                validate_list.append(tmp_dict)
+            tmp_case_parse['testcase_def']['teststeps'][0]['validate'] = validate_list
+            self.suit_json['testsuites'][0]['testcases'][tmp_case.get('case')] = tmp_case_parse
+        return self.suit_json
+
+    def _query_parse(self, query_string, content):
+        if query_string:
+            query_string = f'{query_string}&{content.get("key")}={content.get("value")}'
+        else:
+            query_string = f'?{content.get("key")}={content.get("value")}'
+        return query_string
 

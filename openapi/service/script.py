@@ -30,7 +30,14 @@ def update_script_content_by_script_id(script_id, body, user):
     script = body.get('script')
     description = body.get('description')
     content = body.get('content')
-    Script.update(script_id, script, description,content, user)
+    script_file, project_id = Script.update(script_id, script, description,content, user)
+
+    nirvana_config = NirvanaConfig()
+    script_save_path = nirvana_config.script_save_path(project_id)
+    is_exist_python_path(script_save_path)
+    script_file_path = os.path.join(script_save_path, script_file)
+    with open(script_file_path, 'w') as name:
+        name.write(content)
 
 def delete_script_by_script_id(script_id, user):
     script_file, project_id = Script.delete(script_id, user)

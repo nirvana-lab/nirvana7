@@ -17,6 +17,8 @@ from openapi.db.models.env import Env # noqa: F401
 from openapi.db.models.variable import Variable # noqa: F401
 from openapi.db.models.gvariable import GlobalVariable # noqa: F401
 from openapi.db.models.script import Script # noqa: F401
+from openapi.db.models.testsuit import TestSuit # noqa: F401
+from openapi.db.models.report import Report # noqa: F401
 
 if __name__ == '__main__':
     setup_logger()
@@ -25,7 +27,8 @@ if __name__ == '__main__':
     db.generate_mapping(create_tables=True)
     app = connexion.FlaskApp(__name__, port=9090, specification_dir='specs/')
     CORS(app.app)
-    app.add_api('openapi.yaml', arguments={'title': 'api'})
+    app.add_api('openapi.yaml', arguments={'title': 'api', 'url': '/api'})
+    app.add_api('file.yaml', arguments={'title':'file', 'url': '/report'})
     log.info('api.yaml loaded!')
     app.add_error_handler(connexion.ProblemException, problem_exception_handler)
     app.add_error_handler(Exception, exception_handler)
