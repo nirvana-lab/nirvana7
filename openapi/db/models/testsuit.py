@@ -15,7 +15,6 @@ class TestSuit(db.Entity):
     suit = Required(str)
     project_id =Required(str)
     description = Optional(str)
-    env_id = Required(str)
     suit_content = Required(Json)
     create_at = Required(datetime.datetime, default=datetime.datetime.utcnow(), index=True)
     update_at = Required(datetime.datetime, default=datetime.datetime.utcnow(), index=True)
@@ -26,11 +25,11 @@ class TestSuit(db.Entity):
 
     @classmethod
     @db_session
-    def create(cls, suit, description, project_id, env_id, suit_content, user):
+    def create(cls, suit, description, project_id, suit_content, user):
         obj = get(n for n in TestSuit if n.suit == suit and n.delete_at == None)
         if obj:
             raise IsExist(title='测试套件已经存在', detail=f'测试套件{suit}已经存在')
-        TestSuit(suit=suit, description=description, project_id=project_id, env_id=env_id, suit_content=suit_content, user=user)
+        TestSuit(suit=suit, description=description, project_id=project_id, suit_content=suit_content, user=user)
 
     @classmethod
     @db_session
@@ -54,10 +53,22 @@ class TestSuit(db.Entity):
             return {
                 'id': obj.id,
                 'project_id': obj.project_id,
-                'env_id': obj.env_id,
                 'suit': obj.suit,
                 'description': obj.description,
                 'suit_content': obj.suit_content
             }
+        else:
+            raise IsNotExist(title='测试套件不存在', detail=f'id为{suit_id}的测试套件不存在')
+
+    @classmethod
+    @db_session
+    def update_content_by_suit_id(cls, suit_id, suit, description, suit_content, user):
+        obj = get(n for n in TestSuit if n.id == suit_id and n.delete_at == None)
+        if obj:
+            obj.suit = suit
+            obj.description = description
+            obj.suit_content = suit_content
+            obj.user = user
+            obj.update_at = datetime.datetime.utcnow()
         else:
             raise IsNotExist(title='测试套件不存在', detail=f'id为{suit_id}的测试套件不存在')
