@@ -96,3 +96,18 @@ class TestCase(db.Entity):
            obj.user = user
         else:
             raise IsNotExist(title='测试用例不存在', detail=f'id为{case_id}的测试用例不存在')
+
+    @classmethod
+    @db_session
+    def get_all_case_by_file_id(cls, file_id):
+        data = []
+        objs = select(n for n in TestCase if n.gitfile.id == file_id)
+        for obj in objs:
+            tmp_dict = {
+                'id': obj.id,
+                'method': obj.method,
+                'path': obj.path,
+                'case': obj.case
+            }
+            data.append(tmp_dict)
+        return data

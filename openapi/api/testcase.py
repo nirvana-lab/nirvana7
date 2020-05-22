@@ -73,4 +73,11 @@ def run(case_id, env_id):
     except Exception as e:
         raise DefalutError(title=f'执行测试用例异常', detail=f'执行id为{case_id}的测试用例异常:{e}')
 
-
+def all(project_id, file_path):
+    try:
+        data = testcase.get_all_testcase_by_repo_id_and_file_path(project_id, file_path)
+        return {
+            'data': data
+        }
+    except Exception as e:
+        raise DefalutError(title=f'获取测试用例列表异常', detail=f'{e}')

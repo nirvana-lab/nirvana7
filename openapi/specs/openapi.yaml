@@ -346,6 +346,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/create_failed'
 
+  /testcases/all:
+    get:
+      summary: 获取指定project下的全部测试用例
+      description: 获取指定repo下的全部接口
+      operationId: openapi.api.testcase.all
+      tags:
+      - testcase
+      parameters:
+      - description: gitlab的项目id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
+      responses:
+        200:
+          description: 获取指定project下的全部测试用例
+          content:
+            application/json:
+              schema:
+                type: object
+
+
   /testcases/{case_id}:
     get:
       summary: 获取测试用例

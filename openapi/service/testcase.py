@@ -85,3 +85,15 @@ def run_test_case(case_id, env_id):
         data = f.read()
     result['console'] = data
     return result
+
+def get_all_testcase_by_repo_id_and_file_path(project_id, file_path):
+    gitfile_pk = GitFile.get_obj_pk_by_project_id_and_file_path(project_id, file_path)
+    datas = TestCase.get_all_case_by_file_id(gitfile_pk)
+    data_dict= {}
+    for data in datas:
+        tmp_key = f'{data.get("method")}|{data.get("path")}'
+        if tmp_key in data_dict.keys():
+            data_dict[tmp_key].append({'case': data.get('case'), 'id': data.get('id')})
+        else:
+            data_dict[tmp_key] = [{'case': data.get('case'), 'id': data.get('id')}]
+    return data_dict
