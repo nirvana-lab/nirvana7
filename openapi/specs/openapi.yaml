@@ -734,14 +734,16 @@ paths:
                 description:
                   type: string
                 suit_content:
-                  type: object
-                  properties:
-                    suit_type:
-                      type: string
-                    exec_id:
-                      type: string
-                    env_id:
-                      type: string
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      suit_type:
+                        type: string
+                      exec_id:
+                        type: string
+                      env_id:
+                        type: string
       responses:
         200:
           description: 更新测试套件成功
