@@ -63,7 +63,7 @@ def content(suit_id):
 
 def delete(suit_id):
     try:
-        testsuit.delete_testsuit_by_suit_id(suit_id)
+        testsuit.delete_testsuit_by_suit_id(suit_id, g.username)
         return {
             'title': '删除测试套件成功',
             'detail': '删除测试套件成功'

@@ -51,5 +51,5 @@ def update_testsuit_content_by_suit_id(suit_id, body, user):
 def get_testsuit_content_by_suit_id(suit_id):
     return TestSuit.get_content_by_suit_id(suit_id)
 
-def delete_testsuit_by_suit_id(suit_id):
-    TestSuit.delete_suit_by_suit_id(suit_id)
+def delete_testsuit_by_suit_id(suit_id, user):
+    TestSuit.delete_suit_by_suit_id(suit_id, user)
