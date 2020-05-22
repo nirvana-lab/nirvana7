@@ -68,3 +68,19 @@ class GitFile(db.Entity):
                           last_commit_id=last_commit_id, content=content, user=user, project_id=project_id)
             commit()
             return obj.id
+
+    @classmethod
+    @db_session
+    def get_file_list_by_project_id(cls, project_id):
+        data = []
+        objs = select(n for n in GitFile if n.project_id == project_id and n.delete_at == None)
+        for obj in objs:
+            tmp_dict = {}
+            tmp_dict['id'] = obj.id
+            tmp_dict['file_name'] = obj.file_name
+            tmp_dict['file_path'] = obj.file_path
+            data.append(tmp_dict)
+        return data
+
+
+
