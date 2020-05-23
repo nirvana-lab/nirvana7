@@ -101,7 +101,7 @@ class TestCase(db.Entity):
     @db_session
     def get_all_case_by_file_id(cls, file_id):
         data = []
-        objs = select(n for n in TestCase if n.gitfile.id == file_id)
+        objs = select(n for n in TestCase if n.gitfile.id == file_id and n.delete_at == None)
         for obj in objs:
             tmp_dict = {
                 'id': obj.id,
