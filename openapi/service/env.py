@@ -24,3 +24,11 @@ def env_list(project_id, file_path, ref, user):
 def delete_env_by_id(env_id, user):
     Env.delete_env_by_id(env_id, user)
     # todo 删除环境的时候，把这个环境下的变量也删除
+
+
+def all_env_list(project_id):
+    gitfile_id_list = GitFile.get_file_list_by_project_id(project_id)
+    for git_file in gitfile_id_list:
+        data = Env.list(git_file.get('id'))
+        git_file['env'] = data
+    return gitfile_id_list

@@ -78,6 +78,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/create_success'
 
+  /envs/all:
+    get:
+      summary: 获取环境列表
+      description: 获取指定repo下的环境列表
+      operationId: openapi.api.env.all
+      tags:
+      - env
+      parameters:
+      - description: gitlab的项目id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 返回环境列表
+          content:
+            application/json:
+              schema:
+                type: object
+
+
   /envs/{env_id}:
     delete:
       summary: 删除环境
@@ -359,6 +382,12 @@ paths:
         name: project_id
         schema:
           type: string
+        required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
         required: true
       responses:
         200:

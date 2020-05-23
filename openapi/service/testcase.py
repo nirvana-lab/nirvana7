@@ -88,7 +88,6 @@ def run_test_case(case_id, env_id):
 
 def get_all_testcase_by_repo_id_and_file_path(project_id):
     gitfile_id_list = GitFile.get_file_list_by_project_id(project_id)
-    print(gitfile_id_list)
     for git_file in gitfile_id_list:
         datas = TestCase.get_all_case_by_file_id(git_file.get('id'))
         data_dict= {}

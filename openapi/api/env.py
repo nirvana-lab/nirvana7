@@ -36,3 +36,12 @@ def delete(env_id):
         raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:
         raise DefalutError(title=f'删除环境异常', detail=f'{e}')
+
+def all(project_id):
+    try:
+        data = env.all_env_list(project_id)
+        return {
+            'data': data
+        }
+    except Exception as e:
+        raise DefalutError(title=f'获取环境列表异常', detail=f'{e}')
