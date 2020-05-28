@@ -78,29 +78,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/create_success'
 
-  /envs/all:
-    get:
-      summary: 获取环境列表
-      description: 获取指定repo下的环境列表
-      operationId: openapi.api.env.all
-      tags:
-      - env
-      parameters:
-      - description: gitlab的项目id
-        in: query
-        name: project_id
-        schema:
-          type: string
-        required: true
-      responses:
-        200:
-          description: 返回环境列表
-          content:
-            application/json:
-              schema:
-                type: object
-
-
   /envs/{env_id}:
     delete:
       summary: 删除环境
@@ -383,6 +360,12 @@ paths:
         schema:
           type: string
         required: true
+      - description: 文件路径
+        in: query
+        name: file_path
+        schema:
+         type: string
+        required: true
       responses:
         200:
           description: 获取指定project下的全部测试用例
@@ -556,6 +539,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/create_success'
+
+  /scripts/select:
+    get:
+      summary:  获取脚本列表
+      description: 获取脚本列表
+      operationId: openapi.api.script.select
+      tags:
+      - script
+      parameters:
+      - description: project_id
+        in: query
+        name: project_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 脚本名以及参数列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    args:
+                      type: array
+                      items:
+                        type: string
+
+
 
   /scripts/{script_id}:
     get:

@@ -61,3 +61,12 @@ def content(script_id):
         raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:
         raise DefalutError(title=f'获取脚本详情异常', detail=f'{e}')
+
+def select(project_id):
+    try:
+        data = script.get_function_list_and_args(project_id)
+        return {
+            'data': data
+        }
+    except Exception as e:
+        raise DefalutError(title=f'获取脚本参数列表异常', detail=f'{e}')

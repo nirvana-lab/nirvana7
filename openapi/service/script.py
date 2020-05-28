@@ -4,6 +4,7 @@ from logbook import Logger
 from openapi.config.config import NirvanaConfig
 from openapi.utils.common import is_exist_python_path, delete_file
 import os
+import types
 
 log = Logger('service/script')
 
@@ -48,3 +49,18 @@ def delete_script_by_script_id(script_id, user):
 
 def get_content_by_script_id(script_id):
     return Script.get_content_by_script_id(script_id)
+
+def get_function_list_and_args(project_id):
+    func_list = Script.list(project_id)
+    data = []
+    if func_list:
+        for func in func_list:
+            import_module = __import__(f"openapi.script.{project_id}.{func.get('script_file')[:-3]}", fromlist=True)
+
+            for name, item in vars(import_module).items():
+                if isinstance(item, types.FunctionType):
+                    tmp_dict = {}
+                    tmp_dict['name'] = f'{name}.py'
+                    tmp_dict['args'] = item.__code__.co_varnames
+                    data.append(tmp_dict)
+    return data
