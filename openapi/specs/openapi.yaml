@@ -100,8 +100,6 @@ paths:
               schema:
                 type: object
 
-
-
   /envs/{env_id}:
     delete:
       summary: 删除环境

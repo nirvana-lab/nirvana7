@@ -190,6 +190,7 @@ class TestCaseParse(object):
 class TestSuitParse(object):
 
     def __init__(self, case_id_env_id_list, project_id):
+        self.global_variable = {}
         self.case_id_env_id_list = case_id_env_id_list
         self.project_id = project_id
         self.host = None
@@ -224,16 +225,18 @@ class TestSuitParse(object):
         self.suit_json['project_mapping']['functions'] =  module_dict
 
     def set_globle_variable(self):
-        global_variable = GlobalVariable.get_global_variable(self.project_id)
-        self.suit_json['testsuites'][0]['config']['variables'] = global_variable
+        self.global_variable = GlobalVariable.get_global_variable(self.project_id)
+        # self.suit_json['testsuites'][0]['config']['variables'] = global_variable
 
     def get_env_rariable(self, env_id):
         env_variable = Variable.get_data_variable_by_env_id(env_id)
+        tmp_variable = copy.deepcopy(self.global_variable)
+        tmp_variable.update(env_variable)
         if env_variable.get('host'):
             self.host = env_variable.get('host')
         else:
             raise DefalutError(title=f'请在环境变量中设置host', detail=f'在环境id为{self.env_id}的环境变量中没有找到环境变量host')
-        return env_variable
+        return tmp_variable
 
     def get_httprunner_test_suite_json(self):
         self.set_func()
