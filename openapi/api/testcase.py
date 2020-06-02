@@ -66,8 +66,8 @@ def content(case_id):
 
 def run(case_id, env_id):
     try:
-        result = testcase.run_test_case(case_id, env_id)
-        return result
+        results = testcase.run_test_case(case_id, env_id)
+        return results
     except DefalutError as e:
         raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
     except Exception as e:

@@ -79,12 +79,16 @@ def run_test_case(case_id, env_id):
 
     test_case_parse = case_handle.TestCaseParse(case_id, env_id, project_id)
     case = test_case_parse.get_httprunner_test_case_json()
-    result = runner.run(case)
+    print(case)
+    results = runner.run(case)
+    for result in results['details']:
+        for k, v in result['in_out']['in'].items():
+            result['in_out']['in'][k] = str(v)
 
     with open(log_name, 'r') as f:
         data = f.read()
-    result['console'] = data
-    return result
+    results['console'] = data
+    return results
 
 def get_all_testcase_by_repo_id_and_file_path(project_id):
     gitfile_id_list = GitFile.get_file_list_by_project_id(project_id)

@@ -98,10 +98,10 @@ class TestCaseParse(object):
     def _variable_parse(self, global_variable, env_variable):
         tmp_variable = copy.deepcopy(global_variable)
         tmp_variable.update(env_variable)
-        tmp_list = []
-        for k, v in tmp_variable.items():
-            tmp_list.append({k: v})
-        return tmp_list
+        # tmp_list = []
+        # for k, v in tmp_variable.items():
+        #     tmp_list.append({k: v})
+        return tmp_variable
 
     def set_func(self):
         func_list = Script.list(self.project_id)
@@ -125,12 +125,14 @@ class TestCaseParse(object):
         variables = self._variable_parse(global_variable, env_variable)
         if variables:
             self.case_json["testcases"][0]["config"]["variables"] = variables
+        return variables
 
     def set_steps(self):
         test_case = TestCase.get_case_content_by_id(self.case_id)
         tmp_case = {}
         tmp_case['name'] = test_case.get('case')
 
+        # tmp_case['variables'] = self.set_variable()
         #处理url，请求参数，请求头
         url = self.host + test_case.get('path')
         query_string = None
