@@ -127,6 +127,9 @@ class TestCaseParse(object):
             self.case_json["testcases"][0]["config"]["variables"] = variables
         return variables
 
+    def set_setup(self):
+        pass
+
     def set_steps(self):
         test_case = TestCase.get_case_content_by_id(self.case_id)
         tmp_case = {}

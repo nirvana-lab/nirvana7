@@ -967,7 +967,7 @@ components:
         setup:
           type: array
           items:
-            type: string
+            type: object
         parameters:
           type: array
           items:
@@ -977,7 +977,7 @@ components:
         teardown:
           type: array
           items:
-            type: string
+            type: object
         validator:
           type: array
           items:
