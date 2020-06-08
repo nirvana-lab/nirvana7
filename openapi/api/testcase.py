@@ -81,3 +81,16 @@ def all(project_id):
         }
     except Exception as e:
         raise DefalutError(title=f'获取测试用例列表异常', detail=f'{e}')
+
+
+def copy(case_id):
+    try:
+        testcase.copy_case_by_id(case_id, g.username)
+        return {
+            'title': '复制测试用例成功',
+            'detail': '复制测试用例成功'
+        }
+    except IsNotExist as e:
+        raise DefalutError(title=f'{e.title}', detail=f'{e.detail}')
+    except Exception as e:
+        raise DefalutError(title=f'复制测试用例异常', detail=f'{e}')

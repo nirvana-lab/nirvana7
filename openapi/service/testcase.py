@@ -103,3 +103,7 @@ def get_all_testcase_by_repo_id_and_file_path(project_id):
                 data_dict[tmp_key] = [{'case': data.get('case'), 'id': data.get('id')}]
         git_file['testcases'] = data_dict
     return gitfile_id_list
+
+
+def copy_case_by_id(case_id, user):
+    TestCase.copy_case_by_id(case_id, user)

@@ -86,7 +86,6 @@ class TestCase(db.Entity):
         else:
             raise IsNotExist(title='测试用例不存在', detail=f'id为{case_id}的测试用例不存在')
 
-
     @classmethod
     @db_session
     def delete_case_by_id(cls, case_id, user):
@@ -111,3 +110,13 @@ class TestCase(db.Entity):
             }
             data.append(tmp_dict)
         return data
+
+    @classmethod
+    @db_session
+    def copy_case_by_id(cls, case_id, user):
+        obj = get(n for n in TestCase if n.id == case_id and n.delete_at == None)
+        if obj:
+            TestCase(method=obj.method, path=obj.path, case=f'{obj.case}_copy', setup=obj.setup, parameters=obj.parameters,
+                     body=obj.body, teardown=obj.teardown, validator=obj.validator, user=user, gitfile=obj.gitfile.id)
+        else:
+            raise IsNotExist(title='测试用例不存在', detail=f'id为{case_id}的测试用例不存在')

@@ -496,6 +496,28 @@ paths:
                   log:
                     type: string
 
+  /testcases/{case_id}/copy:
+    get:
+      summary: 复制测试用例
+      description: 复制测试用例
+      operationId: openapi.api.testcase.copy
+      tags:
+      - testcase
+      parameters:
+      - description: 测试用例id
+        in: path
+        name: case_id
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: 复制测试用例成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create_success'
+
   /scripts:
     get:
       summary:  获取脚本列表
