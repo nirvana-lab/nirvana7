@@ -61,6 +61,6 @@ def get_function_list_and_args(project_id):
                 if isinstance(item, types.FunctionType):
                     tmp_dict = {}
                     tmp_dict['name'] = f'{name}.py'
-                    tmp_dict['args'] = item.__code__.co_varnames
+                    tmp_dict['args'] = item.__code__.co_varnames[:item.__code__.co_argcount]
                     data.append(tmp_dict)
     return data
