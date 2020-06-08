@@ -128,7 +128,38 @@ class TestCaseParse(object):
         return variables
 
     def set_setup(self):
-        pass
+        setup_list = self.test_case_dict.get('setup')
+        if setup_list:
+            setup_hooks = []
+            for setup in setup_list:
+                func_name = setup.get('name')
+                func_args = setup.get('args')
+                args_str = None
+                for k, v in func_args.items():
+                    if args_str:
+                        args_str = args_str + f' ,{v}'
+                    else:
+                        args_str = f'{v}'
+                hooks = f'${{{func_name[:-3]}({args_str})}}'
+                setup_hooks.append(hooks)
+            self.case_json["testcases"][0]["setup_hook"] = setup_hooks
+
+    def set_teardown(self):
+        teardown_list = self.test_case_dict.get('teardown')
+        if teardown_list:
+            teardown_hooks = []
+            for teardown in teardown_list:
+                func_name = teardown.get('name')
+                func_args = teardown.get('args')
+                args_str = None
+                for k, v in func_args.items():
+                    if args_str:
+                        args_str = args_str + f' ,{v}'
+                    else:
+                        args_str = f'{v}'
+                hooks = f'${{{func_name[:-3]}({args_str})}}'
+                teardown_hooks.append(hooks)
+            self.case_json["testcases"][0]["teardown_hook"] = teardown_hooks
 
     def set_steps(self):
         test_case = TestCase.get_case_content_by_id(self.case_id)
@@ -180,8 +211,10 @@ class TestCaseParse(object):
     def get_httprunner_test_case_json(self):
         self.test_case_dict = TestCase.get_case_content_by_id(self.case_id)
         self.set_func()
+        self.set_setup()
         self.set_variable()
         self.set_steps()
+        self.set_teardown()
         return self.case_json
 
     def _query_parse(self, query_string, content):
