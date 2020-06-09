@@ -392,7 +392,7 @@ class TestSuitParse(object):
             # 处理teardown
             teardown_list = tmp_case.get('teardown')
             if teardown_list:
-                tmp_case_parse['testcase_def']['teststeps'][0]['teardown_hook'] = self.set_teardown(teardown_list)
+                tmp_case_parse['testcase_def']['teststeps'][0]['teardown_hooks'] = self.set_teardown(teardown_list)
 
             tmp_case_parse['testcase_def']['teststeps'][0]['validate'] = validate_list
             self.suit_json['testsuites'][0]['testcases'][tmp_case.get('case')] = tmp_case_parse
