@@ -1,0 +1,17 @@
+2020-06-09 09:54:44.565 | ERROR    | httprunner.client:request:219 - 400 Client Error: BAD REQUEST for url: http://10.8.1.244:8888/contents
+2020-06-09 09:54:44.566 | ERROR    | httprunner.validator:validate:194 - 
+validate: status_code equals 200(int)	==> fail
+400(int) equals 200(int)
+2020-06-09 09:54:44.567 | ERROR    | httprunner.runner:log_req_resp_details:274 - ******************************** DETAILED REQUEST & RESPONSE ********************************
+====== request details ======
+url: http://10.8.1.244:8888/contents
+method: POST
+headers: {'Authorization': 'NDX', 'HRUN-Request-ID': '635ddbde-055b-4151-8721-0c866c7a3300'}
+json: {'msgtype': 'text', 'content': '1234', 'name': 'yujing'}
+verify: True
+
+====== response details ======
+status_code: 400
+headers: {'Content-Type': 'application/problem+json', 'Content-Length': '202', 'Server': 'Werkzeug/0.16.0 Python/3.7.4', 'Date': 'Tue, 09 Jun 2020 01:54:44 GMT'}
+body: '{\n  "detail": "name\\u4e3a\\u3010yujing\\u3011\\u7684\\u6a21\\u7248\\u5df2\\u7ecf\\u5b58\\u5728",\n  "status": 400,\n  "title": "\\u8be5\\u540d\\u5b57\\u7684\\u6a21\\u7248\\u5df2\\u7ecf\\u5b58\\u5728",\n  "type": "IsExist"\n}\n'
+

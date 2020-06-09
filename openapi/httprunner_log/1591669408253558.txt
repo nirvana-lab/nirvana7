@@ -1,0 +1,25 @@
+2020-06-09 10:23:28.330 | INFO     | httprunner.api:run:333 - HttpRunner version: 3.0.1
+2020-06-09 10:23:28.344 | INFO     | httprunner.api:_run_suite:146 - Start to run testcase: nirvana
+2020-06-09 10:23:28.345 | INFO     | httprunner.report.html.result:startTest:30 - demo
+2020-06-09 10:23:28.345 | DEBUG    | httprunner.runner:do_hook_actions:150 - call SETUP hook actions.
+2020-06-09 10:23:28.345 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${s_config1(name=xumin ,author=NDX)})
+2020-06-09 10:23:28.571 | INFO     | httprunner.runner:_run_test:242 - POST http://10.8.1.244:8888/contents
+2020-06-09 10:23:28.571 | DEBUG    | httprunner.runner:_run_test:243 - request kwargs(raw): {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': '5b1212cd-7212-4538-a37d-287ca1b41099'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True}
+2020-06-09 10:23:28.572 | DEBUG    | httprunner.client:_send_request_safe_mode:238 - processed request:
+> POST http://10.8.1.244:8888/contents
+> kwargs: {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': '5b1212cd-7212-4538-a37d-287ca1b41099'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True, 'timeout': 120}
+2020-06-09 10:23:28.735 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'http://10.8.1.244:8888/contents'
+method           : 'POST'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'NDX', 'HRUN-Request-ID': '5b1212cd-7212-4538-a37d-287ca1b41099', 'Content-Length': '55', 'Content-Type': 'application/json'}
+body             : b'{"msgtype": "text", "content": "1234", "name": "xumin"}'
+
+2020-06-09 10:23:28.737 | ERROR    | httprunner.client:request:219 - 400 Client Error: BAD REQUEST for url: http://10.8.1.244:8888/contents
+2020-06-09 10:23:28.738 | DEBUG    | httprunner.validator:validate:136 - start to validate.
+2020-06-09 10:23:28.738 | DEBUG    | httprunner.response:extract_field:272 - extract: status_code	=> 400
+2020-06-09 10:23:28.739 | DEBUG    | httprunner.validator:validate:182 - 
+validate: status_code equals 400(int)	==> pass
+2020-06-09 10:23:28.739 | DEBUG    | httprunner.response:extract_field:272 - extract: elapsed.seconds	=> 0
+2020-06-09 10:23:28.740 | DEBUG    | httprunner.validator:validate:182 - 
+validate: elapsed.seconds less_than_or_equals 1000(int)	==> pass

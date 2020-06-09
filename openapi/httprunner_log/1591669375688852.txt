@@ -1,0 +1,35 @@
+2020-06-09 10:22:55.752 | INFO     | httprunner.api:run:333 - HttpRunner version: 3.0.1
+2020-06-09 10:22:55.766 | INFO     | httprunner.api:_run_suite:146 - Start to run testcase: nirvana
+2020-06-09 10:22:55.766 | INFO     | httprunner.report.html.result:startTest:30 - demo_copy
+2020-06-09 10:22:55.766 | DEBUG    | httprunner.runner:do_hook_actions:150 - call SETUP hook actions.
+2020-06-09 10:22:55.767 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${s_config1(name=xumin ,author=NDX)})
+2020-06-09 10:22:55.967 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${t_config1(name=xumin ,author=NDX)})
+2020-06-09 10:22:56.192 | INFO     | httprunner.runner:_run_test:242 - POST http://10.8.1.244:8888/contents
+2020-06-09 10:22:56.192 | DEBUG    | httprunner.runner:_run_test:243 - request kwargs(raw): {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': '4e75451c-3883-4a5f-a8a2-8a37277b6e63'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True}
+2020-06-09 10:22:56.193 | DEBUG    | httprunner.client:_send_request_safe_mode:238 - processed request:
+> POST http://10.8.1.244:8888/contents
+> kwargs: {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': '4e75451c-3883-4a5f-a8a2-8a37277b6e63'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True, 'timeout': 120}
+2020-06-09 10:22:56.389 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'http://10.8.1.244:8888/contents'
+method           : 'POST'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'NDX', 'HRUN-Request-ID': '4e75451c-3883-4a5f-a8a2-8a37277b6e63', 'Content-Length': '55', 'Content-Type': 'application/json'}
+body             : b'{"msgtype": "text", "content": "1234", "name": "xumin"}'
+
+2020-06-09 10:22:56.390 | ERROR    | httprunner.client:request:219 - 400 Client Error: BAD REQUEST for url: http://10.8.1.244:8888/contents
+2020-06-09 10:22:56.391 | DEBUG    | httprunner.runner:do_hook_actions:150 - call TEARDOWN hook actions.
+2020-06-09 10:22:56.391 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${t_config2(a=1 ,b=1)})
+2020-06-09 10:22:56.392 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'http://10.8.1.244:8888/contents'
+method           : 'POST'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'NDX', 'HRUN-Request-ID': '4e75451c-3883-4a5f-a8a2-8a37277b6e63', 'Content-Length': '55', 'Content-Type': 'application/json'}
+body             : b'{"msgtype": "text", "content": "1234", "name": "xumin"}'
+
+2020-06-09 10:22:56.393 | DEBUG    | httprunner.validator:validate:136 - start to validate.
+2020-06-09 10:22:56.393 | DEBUG    | httprunner.response:extract_field:272 - extract: status_code	=> 400
+2020-06-09 10:22:56.394 | DEBUG    | httprunner.validator:validate:182 - 
+validate: status_code equals 400(int)	==> pass
+2020-06-09 10:22:56.394 | DEBUG    | httprunner.response:extract_field:272 - extract: elapsed.seconds	=> 0
+2020-06-09 10:22:56.394 | DEBUG    | httprunner.validator:validate:182 - 
+validate: elapsed.seconds less_than_or_equals 1000(int)	==> pass

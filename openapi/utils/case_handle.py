@@ -137,12 +137,13 @@ class TestCaseParse(object):
                 args_str = None
                 for k, v in func_args.items():
                     if args_str:
-                        args_str = args_str + f' ,{v}'
+                        args_str = args_str + f' ,{k}={v}'
                     else:
-                        args_str = f'{v}'
+                        args_str = f'{k}={v}'
                 hooks = f'${{{func_name[:-3]}({args_str})}}'
                 setup_hooks.append(hooks)
-            self.case_json["testcases"][0]["setup_hook"] = setup_hooks
+            # self.case_json["testcases"][0]["setup_hook"] = setup_hooks
+            return setup_hooks
 
     def set_teardown(self):
         teardown_list = self.test_case_dict.get('teardown')
@@ -154,12 +155,13 @@ class TestCaseParse(object):
                 args_str = None
                 for k, v in func_args.items():
                     if args_str:
-                        args_str = args_str + f' ,{v}'
+                        args_str = args_str + f' ,{k}={v}'
                     else:
-                        args_str = f'{v}'
+                        args_str = f'{k}={v}'
                 hooks = f'${{{func_name[:-3]}({args_str})}}'
                 teardown_hooks.append(hooks)
-            self.case_json["testcases"][0]["teardown_hook"] = teardown_hooks
+            # self.case_json["testcases"][0]["teardown_hook"] = teardown_hooks
+            return teardown_hooks
 
     def set_steps(self):
         test_case = TestCase.get_case_content_by_id(self.case_id)
@@ -206,15 +208,26 @@ class TestCaseParse(object):
             tmp_dict[validate.get('comparator')] = [validate.get('key'), expect_value]
             validate_list.append(tmp_dict)
         tmp_case['validate'] = validate_list
+
+        #处理setup
+        setup_hooks = self.set_setup()
+        if setup_hooks:
+            tmp_case['setup_hooks'] = self.set_setup()
+
+        #处理teardown
+        teardown_hooks = self.set_teardown()
+        if teardown_hooks:
+            tmp_case['teardown_hooks'] = self.set_teardown()
+
         self.case_json["testcases"][0]["teststeps"].append(tmp_case)
 
     def get_httprunner_test_case_json(self):
         self.test_case_dict = TestCase.get_case_content_by_id(self.case_id)
         self.set_func()
-        self.set_setup()
+        # self.set_setup()
         self.set_variable()
         self.set_steps()
-        self.set_teardown()
+        # self.set_teardown()
         return self.case_json
 
     def _query_parse(self, query_string, content):
@@ -275,6 +288,38 @@ class TestSuitParse(object):
         else:
             raise DefalutError(title=f'请在环境变量中设置host', detail=f'在环境id为{self.env_id}的环境变量中没有找到环境变量host')
         return tmp_variable
+
+    def set_setup(self, setup_list):
+        if setup_list:
+            setup_hooks = []
+            for setup in setup_list:
+                func_name = setup.get('name')
+                func_args = setup.get('args')
+                args_str = None
+                for k, v in func_args.items():
+                    if args_str:
+                        args_str = args_str + f' ,{k}={v}'
+                    else:
+                        args_str = f'{k}={v}'
+                hooks = f'${{{func_name[:-3]}({args_str})}}'
+                setup_hooks.append(hooks)
+            return setup_hooks
+
+    def set_teardown(self, teardown_list):
+        if teardown_list:
+            teardown_hooks = []
+            for teardown in teardown_list:
+                func_name = teardown.get('name')
+                func_args = teardown.get('args')
+                args_str = None
+                for k, v in func_args.items():
+                    if args_str:
+                        args_str = args_str + f' ,{k}={v}'
+                    else:
+                        args_str = f'{k}={v}'
+                hooks = f'${{{func_name[:-3]}({args_str})}}'
+                teardown_hooks.append(hooks)
+            return teardown_hooks
 
     def get_httprunner_test_suite_json(self):
         self.set_func()
@@ -338,6 +383,17 @@ class TestSuitParse(object):
 
                 tmp_dict[validate.get('comparator')] = [validate.get('key'), expect_value]
                 validate_list.append(tmp_dict)
+
+            # 处理setup
+            setup_list = tmp_case.get('setup')
+            if setup_list:
+                tmp_case_parse['testcase_def']['teststeps'][0]['setup_hooks'] = self.set_setup(setup_list)
+
+            # 处理teardown
+            teardown_list = tmp_case.get('teardown')
+            if teardown_list:
+                tmp_case_parse['testcase_def']['teststeps'][0]['teardown_hook'] = self.set_teardown(teardown_list)
+
             tmp_case_parse['testcase_def']['teststeps'][0]['validate'] = validate_list
             self.suit_json['testsuites'][0]['testcases'][tmp_case.get('case')] = tmp_case_parse
         return self.suit_json

@@ -1,0 +1,37 @@
+2020-05-19 11:28:24.651 | INFO     | httprunner.api:run:334 - HttpRunner version: 3.0.1
+2020-05-19 11:28:24.659 | INFO     | httprunner.api:_run_suite:146 - Start to run testcase: nirvana
+2020-05-19 11:28:24.660 | INFO     | httprunner.runner:_run_test:242 - GET http://10.10.111.32/api/keel/v1/apps
+2020-05-19 11:28:24.661 | DEBUG    | httprunner.runner:_run_test:243 - request kwargs(raw): {'headers': {'Authorization': 'EfVJa1ihGHT4jzSFEhNCFviK4CJH6H0hrRpn2PCMUWPtPYYDft63HlrPxfcDItEDoMCl7pavyQl06fICqvMy27HKvrWxMxioMPwIYoLY3DhrMarh2K-cIehKXDZWVfbdvUDWqZIJjoyjpsUIAEqSPg==', 'UserNameSpace': 'a686345-org', 'HRUN-Request-ID': '4541a89a-0aa7-464a-9ad9-13d29128715a'}, 'verify': True}
+2020-05-19 11:28:24.661 | DEBUG    | httprunner.client:_send_request_safe_mode:238 - processed request:
+> GET http://10.10.111.32/api/keel/v1/apps
+> kwargs: {'headers': {'Authorization': 'EfVJa1ihGHT4jzSFEhNCFviK4CJH6H0hrRpn2PCMUWPtPYYDft63HlrPxfcDItEDoMCl7pavyQl06fICqvMy27HKvrWxMxioMPwIYoLY3DhrMarh2K-cIehKXDZWVfbdvUDWqZIJjoyjpsUIAEqSPg==', 'UserNameSpace': 'a686345-org', 'HRUN-Request-ID': '4541a89a-0aa7-464a-9ad9-13d29128715a'}, 'verify': True, 'timeout': 120}
+2020-05-19 11:28:24.823 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'http://10.10.111.32/api/keel/v1/apps'
+method           : 'GET'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'EfVJa1ihGHT4jzSFEhNCFviK4CJH6H0hrRpn2PCMUWPtPYYDft63HlrPxfcDItEDoMCl7pavyQl06fICqvMy27HKvrWxMxioMPwIYoLY3DhrMarh2K-cIehKXDZWVfbdvUDWqZIJjoyjpsUIAEqSPg==', 'UserNameSpace': 'a686345-org', 'HRUN-Request-ID': '4541a89a-0aa7-464a-9ad9-13d29128715a'}
+
+2020-05-19 11:28:24.823 | DEBUG    | httprunner.client:log_print:25 - 
+================== response details ==================
+ok               : True
+url              : 'http://10.10.111.32/api/keel/v1/apps'
+status_code      : 200
+reason           : 'OK'
+cookies          : {}
+encoding         : None
+headers          : {'Content-Encoding': 'gzip', 'Content-Type': 'application/json', 'Date': 'Tue, 19 May 2020 03:28:24 GMT', 'Server': 'Caddy', 'Vary': 'Accept-Encoding', 'Content-Length': '687'}
+content_type     : 'application/json'
+body             : {'applications': [{'id': '1233f9f5-6841-4ff4-bfd0-91ca421dfc18', 'name': 'test', 'owner_id': '1eee9b70-4796-4788-ace5-0ddac09dd84f', 'last_version': '', 'created_at': 1589357212602355468, 'updated_at': 1589357212602355468, 'projects': []}, {'id': '316b16c6-f47d-49b7-9614-95acb0b59e8e', 'name': 'a686345-app', 'owner_id': '1eee9b70-4796-4788-ace5-0ddac09dd84f', 'last_version': '', 'created_at': 1589273718275935449, 'updated_at': 1589273718275935449, 'projects': [{'id': 'ac9462ea-5004-45b4-8b2c-bf5917c39824', 'name': 'a686345-dev', 'namespace': 'a686345-org', 'kind': 'code', 'app_id': '316b16c6-f47d-49b7-9614-95acb0b59e8e', 'repo_id': '1ecd503b-e9f1-4330-b04d-c7e6b15ca113', 'owner_id': '1eee9b70-4796-4788-ace5-0ddac09dd84f', 'creator_id': 'aa33def4-41f6-45c4-ad98-50e40508e060', 'builder_group': 'default', 'warehouse_id': 'd841f0e0-f130-40a8-9cce-eb24ac2ad845', 'artifact_id': 'c79879f5-046d-4c33-a043-5d77ce9a6488', 'artifact_kind': 'registry', 'artifact_options': None, 'created_at': 1589273853678232421, 'updated_at': 1589273853713501057, 'last_operated_at': 1589273939945438842}, {'id': '752bfafb-ffaa-4cd9-9868-44fa3c15f1ee', 'name': 'a686345-deploy', 'namespace': 'a686345-org', 'kind': 'deploy', 'app_id': '316b16c6-f47d-49b7-9614-95acb0b59e8e', 'repo_id': '1f79cb36-ff52-4a98-b19c-9a7d96d937be', 'owner_id': '1eee9b70-4796-4788-ace5-0ddac09dd84f', 'creator_id': 'aa33def4-41f6-45c4-ad98-50e40508e060', 'builder_group': 'default', 'warehouse_id': '00000000-0000-0000-0000-000000000000', 'artifact_id': '00000000-0000-0000-0000-000000000000', 'artifact_kind': '', 'artifact_options': None, 'created_at': 1589274103340115258, 'updated_at': 0, 'last_operated_at': 1589274103340115258}, {'id': 'c7c68a4a-ed4d-4ad4-a40e-76c9f4a7acde', 'name': 'a686345-test', 'namespace': 'a686345-org', 'kind': 'test', 'app_id': '316b16c6-f47d-49b7-9614-95acb0b59e8e', 'repo_id': '19100feb-cf22-4b97-addc-8326428ed6c0', 'owner_id': '1eee9b70-4796-4788-ace5-0ddac09dd84f', 'creator_id': 'aa33def4-41f6-45c4-ad98-50e40508e060', 'builder_group': 'default', 'warehouse_id': '00000000-0000-0000-0000-000000000000', 'artifact_id': '00000000-0000-0000-0000-000000000000', 'artifact_kind': '', 'artifact_options': None, 'created_at': 1589274287306733699, 'updated_at': 0, 'last_operated_at': 1589274405769444046}]}], 'total': 2, 'page': 1, 'size': 20}
+
+2020-05-19 11:28:24.824 | INFO     | httprunner.client:request:222 - status_code: 200, response_time(ms): 162.08 ms, response_length: 2209 bytes
+
+2020-05-19 11:28:24.824 | DEBUG    | httprunner.validator:validate:136 - start to validate.
+2020-05-19 11:28:24.824 | DEBUG    | httprunner.response:extract_field:272 - extract: status_code	=> 200
+2020-05-19 11:28:24.824 | DEBUG    | httprunner.validator:validate:182 - 
+validate: status_code equals 200(int)	==> pass
+2020-05-19 11:28:24.824 | DEBUG    | httprunner.response:extract_field:272 - extract: elapsed.seconds	=> 0
+2020-05-19 11:28:24.824 | DEBUG    | httprunner.validator:validate:182 - 
+validate: elapsed.seconds less_than 1(int)	==> pass
+2020-05-19 11:28:24.825 | DEBUG    | httprunner.response:extract_field:272 - extract: content.size	=> 20
+2020-05-19 11:28:24.825 | DEBUG    | httprunner.validator:validate:182 - 
+validate: content.size equals 20(int)	==> pass

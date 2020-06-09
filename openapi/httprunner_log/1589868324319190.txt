@@ -1,0 +1,40 @@
+2020-05-19 14:05:24.377 | INFO     | httprunner.api:run:334 - HttpRunner version: 3.0.1
+2020-05-19 14:05:24.381 | WARNING  | httprunner.api:run_tests:224 - parse failures occurred ...
+2020-05-19 14:05:24.382 | INFO     | httprunner.utils:dump_json_file:551 - dump file: /Users/xumin/jo/nirvana7/logs/tests_mapping.parse_failed.json
+2020-05-19 14:05:24.383 | INFO     | httprunner.api:_run_suite:146 - Start to run testcase: nirvana
+2020-05-19 14:05:24.383 | INFO     | httprunner.report.html.result:startTest:30 - case-demo1
+2020-05-19 14:05:24.383 | INFO     | httprunner.runner:_run_test:242 - GET https://gitlab.daocloud.io/api/v4/projects/1662/repository/files/nirvana%2Fdemo%2Fdemo.yaml?ref=master
+2020-05-19 14:05:24.383 | DEBUG    | httprunner.runner:_run_test:243 - request kwargs(raw): {'headers': {'Private-Token': 'hello', 'HRUN-Request-ID': '44992402-30b2-4ce5-8546-3ce6a2e91a0b'}, 'verify': True}
+2020-05-19 14:05:24.384 | DEBUG    | httprunner.client:_send_request_safe_mode:238 - processed request:
+> GET https://gitlab.daocloud.io/api/v4/projects/1662/repository/files/nirvana%2Fdemo%2Fdemo.yaml?ref=master
+> kwargs: {'headers': {'Private-Token': 'hello', 'HRUN-Request-ID': '44992402-30b2-4ce5-8546-3ce6a2e91a0b'}, 'verify': True, 'timeout': 120}
+2020-05-19 14:05:24.455 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'https://gitlab.daocloud.io/api/v4/projects/1662/repository/files/nirvana%2Fdemo%2Fdemo.yaml?ref=master'
+method           : 'GET'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Private-Token': 'hello', 'HRUN-Request-ID': '44992402-30b2-4ce5-8546-3ce6a2e91a0b'}
+
+2020-05-19 14:05:24.456 | DEBUG    | httprunner.client:log_print:25 - 
+================== response details ==================
+ok               : False
+url              : 'https://gitlab.daocloud.io/api/v4/projects/1662/repository/files/nirvana%2Fdemo%2Fdemo.yaml?ref=master'
+status_code      : 401
+reason           : 'Unauthorized'
+cookies          : {}
+encoding         : None
+headers          : {'Date': 'Tue, 19 May 2020 06:05:24 GMT', 'Content-Type': 'application/json', 'Content-Length': '30', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache', 'Vary': 'Origin', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'SAMEORIGIN', 'X-Request-Id': 'T9QJnbBqqx4', 'X-Runtime': '0.016469', 'Server': 'elb'}
+content_type     : 'application/json'
+body             : {'message': '401 Unauthorized'}
+
+2020-05-19 14:05:24.456 | ERROR    | httprunner.client:request:219 - 401 Client Error: Unauthorized for url: https://gitlab.daocloud.io/api/v4/projects/1662/repository/files/nirvana%2Fdemo%2Fdemo.yaml?ref=master
+2020-05-19 14:05:24.456 | DEBUG    | httprunner.validator:validate:136 - start to validate.
+2020-05-19 14:05:24.457 | DEBUG    | httprunner.response:extract_field:272 - extract: status_code	=> 401
+2020-05-19 14:05:24.457 | ERROR    | httprunner.validator:validate:194 - 
+validate: status_code equals 2000(str)	==> fail
+401(int) equals 2000(str)
+2020-05-19 14:05:24.457 | DEBUG    | httprunner.response:extract_field:272 - extract: elapsed.seconds	=> 0
+2020-05-19 14:05:24.457 | DEBUG    | httprunner.validator:validate:182 - 
+validate: elapsed.seconds less_than 1(int)	==> pass
+2020-05-19 14:05:24.458 | ERROR    | httprunner.utils:query_json:117 - Failed to extract! => file_name
+response body: {'message': '401 Unauthorized'}
+

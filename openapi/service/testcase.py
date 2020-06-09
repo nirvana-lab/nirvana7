@@ -74,8 +74,8 @@ def run_test_case(case_id, env_id):
     from httprunner.api import HttpRunner
     httprunner_log_path = config.NirvanaConfig().httprunner_log_save_path()
     log_name = f'{httprunner_log_path}/{init_time_stamp()}.txt'
-    # runner = HttpRunner(log_level="DEBUG", log_file=log_name)
-    runner = HttpRunner(log_file=log_name)
+    runner = HttpRunner(log_level="DEBUG", log_file=log_name)
+    # runner = HttpRunner(log_file=log_name)
 
     test_case_parse = case_handle.TestCaseParse(case_id, env_id, project_id)
     case = test_case_parse.get_httprunner_test_case_json()

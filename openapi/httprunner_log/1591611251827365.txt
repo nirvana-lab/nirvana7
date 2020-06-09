@@ -1,0 +1,108 @@
+2020-06-08 18:14:11.876 | ERROR    | httprunner.loader.check:validate_format:54 - {'name': 'demo', 'request': {'url': 'http://10.8.1.244:8888/contents', 'method': 'POST', 'headers': {'Authorization': '${token()}'}, 'json': {'msgtype': 'text', 'content': '123', 'name': 'yujing'}}, 'validate': [{'equals': ['status_code', 400]}, {'less_than': ['elapsed.seconds', 1000]}], 'setup_hooks': ['${s_config1(name=yujing ,author=NDX)}'], 'teardown_hooks': None} is not valid under any of the given schemas
+
+Failed validating 'oneOf' in schema['properties']['teststeps']['items']:
+    {'oneOf': [{'properties': {'extract': {'$ref': 'common.schema.json#/definitions/extract'},
+                               'name': {'$ref': 'common.schema.json#/definitions/name'},
+                               'request': {'$ref': 'common.schema.json#/definitions/request',
+                                           'description': 'define api '
+                                                          'request '
+                                                          'directly'},
+                               'setup_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'teardown_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'validate': {'$ref': 'common.schema.json#/definitions/validate'},
+                               'variables': {'$ref': 'common.schema.json#/definitions/variables'}},
+                'required': ['name', 'request']},
+               {'properties': {'api': {'description': 'api reference, '
+                                                      'value is api file '
+                                                      'relative path',
+                                       'type': 'string'},
+                               'extract': {'oneOf': [{'items': {'type': 'string'},
+                                                      'type': 'array'},
+                                                     {'$ref': 'common.schema.json#/definitions/extract'}]},
+                               'name': {'$ref': 'common.schema.json#/definitions/name'},
+                               'setup_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'teardown_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'validate': {'$ref': 'common.schema.json#/definitions/validate'},
+                               'variables': {'$ref': 'common.schema.json#/definitions/variables'}},
+                'required': ['name', 'api']},
+               {'properties': {'extract': {'items': {'type': 'string'},
+                                           'type': 'array'},
+                               'name': {'$ref': 'common.schema.json#/definitions/name'},
+                               'setup_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'teardown_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'testcase': {'description': 'testcase '
+                                                           'reference, '
+                                                           'value is '
+                                                           'testcase file '
+                                                           'relative path',
+                                            'type': 'string'},
+                               'variables': {'$ref': 'common.schema.json#/definitions/variables'}},
+                'required': ['name', 'testcase']}],
+     'type': 'object'}
+
+On instance['teststeps'][0]:
+    {'name': 'demo',
+     'request': {'headers': {'Authorization': '${token()}'},
+                 'json': {'content': '123',
+                          'msgtype': 'text',
+                          'name': 'yujing'},
+                 'method': 'POST',
+                 'url': 'http://10.8.1.244:8888/contents'},
+     'setup_hooks': ['${s_config1(name=yujing ,author=NDX)}'],
+     'teardown_hooks': None,
+     'validate': [{'equals': ['status_code', 400]},
+                  {'less_than': ['elapsed.seconds', 1000]}]}
+2020-06-08 18:14:11.881 | ERROR    | httprunner.loader.check:validate_format:54 - {'name': 'demo', 'request': {'url': 'http://10.8.1.244:8888/contents', 'method': 'POST', 'headers': {'Authorization': '${token()}'}, 'json': {'msgtype': 'text', 'content': '123', 'name': 'yujing'}}, 'validate': [{'equals': ['status_code', 400]}, {'less_than': ['elapsed.seconds', 1000]}], 'setup_hooks': ['${s_config1(name=yujing ,author=NDX)}'], 'teardown_hooks': None} is not valid under any of the given schemas
+
+Failed validating 'oneOf' in schema['properties']['teststeps']['items']:
+    {'oneOf': [{'properties': {'extract': {'$ref': 'common.schema.json#/definitions/extract'},
+                               'name': {'$ref': 'common.schema.json#/definitions/name'},
+                               'request': {'$ref': 'common.schema.json#/definitions/request',
+                                           'description': 'define api '
+                                                          'request '
+                                                          'directly'},
+                               'setup_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'teardown_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'validate': {'$ref': 'common.schema.json#/definitions/validate'},
+                               'variables': {'$ref': 'common.schema.json#/definitions/variables'}},
+                'required': ['name', 'request']},
+               {'properties': {'api': {'description': 'api reference, '
+                                                      'value is api file '
+                                                      'relative path',
+                                       'type': 'string'},
+                               'extract': {'oneOf': [{'items': {'type': 'string'},
+                                                      'type': 'array'},
+                                                     {'$ref': 'common.schema.json#/definitions/extract'}]},
+                               'name': {'$ref': 'common.schema.json#/definitions/name'},
+                               'setup_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'teardown_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'validate': {'$ref': 'common.schema.json#/definitions/validate'},
+                               'variables': {'$ref': 'common.schema.json#/definitions/variables'}},
+                'required': ['name', 'api']},
+               {'properties': {'extract': {'items': {'type': 'string'},
+                                           'type': 'array'},
+                               'name': {'$ref': 'common.schema.json#/definitions/name'},
+                               'setup_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'teardown_hooks': {'$ref': 'common.schema.json#/definitions/hook'},
+                               'testcase': {'description': 'testcase '
+                                                           'reference, '
+                                                           'value is '
+                                                           'testcase file '
+                                                           'relative path',
+                                            'type': 'string'},
+                               'variables': {'$ref': 'common.schema.json#/definitions/variables'}},
+                'required': ['name', 'testcase']}],
+     'type': 'object'}
+
+On instance['teststeps'][0]:
+    {'name': 'demo',
+     'request': {'headers': {'Authorization': '${token()}'},
+                 'json': {'content': '123',
+                          'msgtype': 'text',
+                          'name': 'yujing'},
+                 'method': 'POST',
+                 'url': 'http://10.8.1.244:8888/contents'},
+     'setup_hooks': ['${s_config1(name=yujing ,author=NDX)}'],
+     'teardown_hooks': None,
+     'validate': [{'equals': ['status_code', 400]},
+                  {'less_than': ['elapsed.seconds', 1000]}]}

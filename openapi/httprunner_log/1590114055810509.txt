@@ -1,0 +1,3 @@
+2020-05-22 10:20:55.879 | ERROR    | httprunner.parser:_parse_testcase:1250 - failed to parse testcase: None, error: equal is not found.
+2020-05-22 10:20:55.879 | WARNING  | httprunner.api:run_tests:224 - parse failures occurred ...
+2020-05-22 10:20:55.881 | ERROR    | httprunner.api:run_tests:231 - failed to parse all cases, abort.

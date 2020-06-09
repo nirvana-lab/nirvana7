@@ -1,0 +1,5 @@
+2020-05-19 11:35:08.952 | INFO     | httprunner.api:run:334 - HttpRunner version: 3.0.1
+2020-05-19 11:35:08.956 | ERROR    | httprunner.parser:_parse_testcase:1250 - failed to parse testcase: None, error: equal is not found.
+2020-05-19 11:35:08.956 | WARNING  | httprunner.api:run_tests:224 - parse failures occurred ...
+2020-05-19 11:35:08.957 | INFO     | httprunner.utils:dump_json_file:551 - dump file: /Users/xumin/jo/nirvana7/logs/tests_mapping.parse_failed.json
+2020-05-19 11:35:08.957 | ERROR    | httprunner.api:run_tests:231 - failed to parse all cases, abort.

@@ -1,0 +1,26 @@
+2020-06-09 10:32:15.417 | INFO     | httprunner.api:run:333 - HttpRunner version: 3.0.1
+2020-06-09 10:32:15.431 | INFO     | httprunner.api:_run_suite:146 - Start to run testcase: nirvana
+2020-06-09 10:32:15.431 | INFO     | httprunner.report.html.result:startTest:30 - demo
+2020-06-09 10:32:15.432 | DEBUG    | httprunner.runner:do_hook_actions:150 - call SETUP hook actions.
+2020-06-09 10:32:15.432 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${s_config1(name=xumin ,author=NDX)})
+2020-06-09 10:32:15.686 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${t_config1(name=xumin ,author=NDX)})
+2020-06-09 10:32:15.933 | INFO     | httprunner.runner:_run_test:242 - POST http://10.8.1.244:8888/contents
+2020-06-09 10:32:15.934 | DEBUG    | httprunner.runner:_run_test:243 - request kwargs(raw): {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': 'c3a813ac-a6d9-49f0-b67d-0d65dce0371e'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True}
+2020-06-09 10:32:15.934 | DEBUG    | httprunner.client:_send_request_safe_mode:238 - processed request:
+> POST http://10.8.1.244:8888/contents
+> kwargs: {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': 'c3a813ac-a6d9-49f0-b67d-0d65dce0371e'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True, 'timeout': 120}
+2020-06-09 10:32:16.367 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'http://10.8.1.244:8888/contents'
+method           : 'POST'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'NDX', 'HRUN-Request-ID': 'c3a813ac-a6d9-49f0-b67d-0d65dce0371e', 'Content-Length': '55', 'Content-Type': 'application/json'}
+body             : b'{"msgtype": "text", "content": "1234", "name": "xumin"}'
+
+2020-06-09 10:32:16.368 | ERROR    | httprunner.client:request:219 - 400 Client Error: BAD REQUEST for url: http://10.8.1.244:8888/contents
+2020-06-09 10:32:16.369 | DEBUG    | httprunner.validator:validate:136 - start to validate.
+2020-06-09 10:32:16.369 | DEBUG    | httprunner.response:extract_field:272 - extract: status_code	=> 400
+2020-06-09 10:32:16.370 | DEBUG    | httprunner.validator:validate:182 - 
+validate: status_code equals 400(int)	==> pass
+2020-06-09 10:32:16.370 | DEBUG    | httprunner.response:extract_field:272 - extract: elapsed.seconds	=> 0
+2020-06-09 10:32:16.370 | DEBUG    | httprunner.validator:validate:182 - 
+validate: elapsed.seconds less_than_or_equals 1000(int)	==> pass

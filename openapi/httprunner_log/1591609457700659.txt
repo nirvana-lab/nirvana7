@@ -1,0 +1,16 @@
+2020-06-08 17:44:17.914 | ERROR    | httprunner.validator:validate:194 - 
+validate: status_code equals 400(int)	==> fail
+200(int) equals 400(int)
+2020-06-08 17:44:17.915 | ERROR    | httprunner.runner:log_req_resp_details:274 - ******************************** DETAILED REQUEST & RESPONSE ********************************
+====== request details ======
+url: http://10.8.1.244:8888/contents
+method: POST
+headers: {'Authorization': 'NDX', 'HRUN-Request-ID': '02dd3088-d7ed-4082-828f-e8c0bcf4b826'}
+json: {'msgtype': 'text', 'content': '123', 'name': 'yujing'}
+verify: True
+
+====== response details ======
+status_code: 200
+headers: {'Content-Type': 'application/json', 'Content-Length': '10', 'Server': 'Werkzeug/0.16.0 Python/3.7.4', 'Date': 'Mon, 08 Jun 2020 09:44:17 GMT'}
+body: '"success"\n'
+

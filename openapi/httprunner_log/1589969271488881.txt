@@ -1,0 +1,4 @@
+2020-05-20 18:07:51.637 | ERROR    | httprunner.client:request:219 - 403 Client Error: Forbidden for url: http://10.10.111.32/api/keel/v1/apps
+2020-05-20 18:07:51.637 | ERROR    | httprunner.validator:validate:194 - 
+validate: status_code equals 200(int)	==> fail
+403(int) equals 200(int)

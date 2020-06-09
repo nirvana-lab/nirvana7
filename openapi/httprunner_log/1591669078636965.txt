@@ -1,0 +1,21 @@
+2020-06-09 10:19:03.814 | INFO     | httprunner.api:run:333 - HttpRunner version: 3.0.1
+2020-06-09 10:19:03.853 | INFO     | httprunner.api:_run_suite:146 - Start to run testcase: nirvana
+2020-06-09 10:19:03.853 | INFO     | httprunner.report.html.result:startTest:30 - demo_copy
+2020-06-09 10:19:03.854 | DEBUG    | httprunner.runner:do_hook_actions:150 - call SETUP hook actions.
+2020-06-09 10:19:03.855 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${s_config1(name=xumin ,author=NDX)})
+2020-06-09 10:19:04.102 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${t_config1(name=xumin ,author=NDX)})
+2020-06-09 10:19:04.721 | INFO     | httprunner.runner:_run_test:242 - POST http://10.8.1.244:8888/contents
+2020-06-09 10:19:04.721 | DEBUG    | httprunner.runner:_run_test:243 - request kwargs(raw): {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': '99fef604-3008-44e3-a4fe-75d86f1e816c'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True}
+2020-06-09 10:19:04.722 | DEBUG    | httprunner.client:_send_request_safe_mode:238 - processed request:
+> POST http://10.8.1.244:8888/contents
+> kwargs: {'headers': {'Authorization': 'NDX', 'HRUN-Request-ID': '99fef604-3008-44e3-a4fe-75d86f1e816c'}, 'json': {'msgtype': 'text', 'content': '1234', 'name': 'xumin'}, 'verify': True, 'timeout': 120}
+2020-06-09 10:19:04.905 | DEBUG    | httprunner.client:log_print:25 - 
+================== request details ==================
+url              : 'http://10.8.1.244:8888/contents'
+method           : 'POST'
+headers          : {'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'NDX', 'HRUN-Request-ID': '99fef604-3008-44e3-a4fe-75d86f1e816c', 'Content-Length': '55', 'Content-Type': 'application/json'}
+body             : b'{"msgtype": "text", "content": "1234", "name": "xumin"}'
+
+2020-06-09 10:19:04.911 | ERROR    | httprunner.client:request:219 - 400 Client Error: BAD REQUEST for url: http://10.8.1.244:8888/contents
+2020-06-09 10:19:04.912 | DEBUG    | httprunner.runner:do_hook_actions:150 - call TEARDOWN hook actions.
+2020-06-09 10:19:04.912 | DEBUG    | httprunner.runner:do_hook_actions:165 - call hook function: LazyString(${t_config2(a=r ,b=t ,name=xumin ,author=NDX)})

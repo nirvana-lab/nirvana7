@@ -1,0 +1,8 @@
+2020-05-22 10:21:01.755 | WARNING  | httprunner.api:run_tests:224 - parse failures occurred ...
+2020-05-22 10:21:01.889 | ERROR    | httprunner.client:request:219 - 401 Client Error: Unauthorized for url: https://gitlab.daocloud.io/api/v4/projects/1662/repository/files/nirvana%2Fdemo%2Fdemo.yaml?ref=master
+2020-05-22 10:21:01.890 | ERROR    | httprunner.validator:validate:194 - 
+validate: status_code equals 2000(str)	==> fail
+401(int) equals 2000(str)
+2020-05-22 10:21:01.890 | ERROR    | httprunner.utils:query_json:117 - Failed to extract! => file_name
+response body: {'message': '401 Unauthorized'}
+
