@@ -9,7 +9,8 @@ class NirvanaConfig(object):
         pg_user = os.getenv('PG_USER') if  os.getenv('PG_USER') else 'postgres'
         pg_password = os.getenv('PG_PASSWORD') if  os.getenv('PG_PASSWORD') else '123456'
         pg_database = os.getenv('PG_NAME') if  os.getenv('PG_NAME') else 'nirvana04'
-        return pg_provider, pg_host, pg_user, pg_password, pg_database
+        pg_port = int(os.getenv('PG_PORT')) or 5432
+        return pg_provider, pg_host, pg_user, pg_password, pg_database, pg_port
 
     def workspace_path(self):
         work_space = os.getenv('SCRIPT_SAVE_PATH') if os.getenv(
