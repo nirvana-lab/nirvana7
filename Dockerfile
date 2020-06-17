@@ -3,7 +3,7 @@ MAINTAINER min.xu@daocloud.io
 WORKDIR /workspace
 
 COPY . .
-RUN pip install -r requirements.txt && /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+RUN pip install -r requirements.txt
 
 CMD ./launch.sh
 EXPOSE 9090
