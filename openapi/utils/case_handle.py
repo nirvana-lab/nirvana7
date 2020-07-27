@@ -185,7 +185,8 @@ class TestCaseParse(object):
         tmp_case['request'] = {
             'url': url,
             'method': test_case.get('method').upper(),
-            'headers': headers_dict
+            'headers': headers_dict,
+            'verify': false
         }
 
         # 处理body
